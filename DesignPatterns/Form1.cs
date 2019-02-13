@@ -75,6 +75,7 @@ namespace DesignPatterns
                 b.Location = putShapeOnPanel;
                 b.Paint += B_Paint;
                 b.Click += B_Click;
+                b.MouseDown += B_MouseDown;
                 p.Controls.Add(b);
             }
             if (ellipse)
@@ -95,21 +96,29 @@ namespace DesignPatterns
         {
             PictureBox shape = (PictureBox)sender;
             //dus wanneer je op een shape drukt gaat hij kijken of je panel children heeft(dus pictureboxes) en daarna verplaatst hij hem ergens.
-            if (select)
-            {
-                if (panel1.HasChildren)
-                {
-                    //Dit moet nog even dat wanneer je hem selecteert dat je dan een 2e point moet krijgen(via de muis) zodat hij daar naar toe verplaatst
-                    shape.Location = new Point(shape.Location.X + 25, shape.Location.Y + 25);
-                }
-            }
+            
         }
 
 
         private void B_MouseDown(object sender, MouseEventArgs e)
         {
-            PictureBox p = (PictureBox)sender;
+            PictureBox shape = (PictureBox)sender;
+            Console.WriteLine(shape.Parent.PointToClient(Cursor.Position));
             location = e.Location;
+            location = shape.Parent.PointToClient(Cursor.Position);
+            Console.WriteLine(e.Location);
+            //location = e.Location;
+            Console.WriteLine(location);
+
+            if (select)
+            {
+                shape.Location = location;
+
+                if (panel1.HasChildren)
+                {
+                    //Dit moet nog even dat wanneer je hem selecteert dat je dan een 2e point moet krijgen(via de muis) zodat hij daar naar toe verplaatst
+                }
+            }
         }
 
         /// <summary>
