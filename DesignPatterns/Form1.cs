@@ -15,7 +15,6 @@ namespace DesignPatterns
         Pen pen = new Pen(Color.Black, 5);
         
         Graphics g;
-        Rectangle rect;
         Size userSize = new Size(50, 50);
         Point location;
         Point putShapeOnPanel;
@@ -30,6 +29,7 @@ namespace DesignPatterns
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
+            
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -69,22 +69,52 @@ namespace DesignPatterns
 
             //als de rectangle button is geklikt.
             if(rectangle)
-            {                
-                PictureBox b = new PictureBox();
-                b.Size = userSize;                
-                b.Location = putShapeOnPanel;
+            {
+                Test b = new Test
+                {
+                    Size = userSize,
+                    Location = putShapeOnPanel
+                };
                 b.Paint += B_Paint;
+                b.MouseMove += B_MouseMove;
                 b.Click += B_Click;
                 b.MouseDown += B_MouseDown;
                 p.Controls.Add(b);
             }
             if (ellipse)
             {
-                rect = new Rectangle(putShapeOnPanel, userSize);
-                e.Graphics.FillEllipse(new SolidBrush(Color.Black), rect);
-                Console.WriteLine(p.HasChildren);
+                Test box = new Test
+                {
+                    Size = userSize,
+                    Location = putShapeOnPanel
+                };
+                box.Paint += Box_Paint;
+                box.Click += B_Click;
+                box.MouseDown += B_MouseDown;
+                p.Controls.Add(box);
             }
             
+        }
+
+        private void B_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && select)
+            {
+                Test p = (Test)sender;
+                Console.WriteLine(e.Location);
+                Console.WriteLine(p.Parent.PointToClient(e.Location));
+                Console.WriteLine(p.Parent.PointToScreen(e.Location));
+                location = p.Parent.PointToScreen(e.Location);
+                p.Location = location;
+                //Point loc2 = location;
+                panel1.Invalidate();
+            }
+        }
+
+        private void Box_Paint(object sender, PaintEventArgs e)
+        {
+            Test p = (Test)sender;
+            e.Graphics.FillEllipse(new SolidBrush(Color.Black), new Rectangle(0, 0, p.Width, p.Height));
         }
 
         /// <summary>
@@ -94,15 +124,14 @@ namespace DesignPatterns
         /// <param name="e"></param>
         private void B_Click(object sender, EventArgs e)
         {
-            PictureBox shape = (PictureBox)sender;
+            Test shape = (Test)sender;
             //dus wanneer je op een shape drukt gaat hij kijken of je panel children heeft(dus pictureboxes) en daarna verplaatst hij hem ergens.
             
         }
 
-
         private void B_MouseDown(object sender, MouseEventArgs e)
         {
-            PictureBox shape = (PictureBox)sender;
+            Test shape = (Test)sender;
             Console.WriteLine(shape.Parent.PointToClient(Cursor.Position));
             location = e.Location;
             location = shape.Parent.PointToClient(Cursor.Position);
@@ -128,14 +157,14 @@ namespace DesignPatterns
         /// <param name="e"></param>
         private void B_Paint(object sender, PaintEventArgs e)
         {
-            PictureBox p = sender as PictureBox;
-            e.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, p.Width, p.Height));            
+            Test p = sender as Test;
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, p.Width, p.Height));
         }
 
         private void panel1_Click(object sender, EventArgs e)
         {
             Panel panel = (Panel)sender;
-            panel.Refresh();
+            panel.Invalidate();
         }
     }
 }
