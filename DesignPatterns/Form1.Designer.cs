@@ -1,5 +1,8 @@
 ﻿namespace DesignPatterns
 {
+    /// <summary>
+    /// Form class
+    /// </summary>
     partial class Form1
     {
         /// <summary>
@@ -41,6 +44,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(510, 341);
             this.panel1.TabIndex = 0;
+            this.panel1.Click += new System.EventHandler(this.panel1_Click);
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -93,11 +97,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button RectangleButton;
         private System.Windows.Forms.Button EllipseButton;
         private System.Windows.Forms.Button SelectButton;
+        /// <summary>
+        /// Het panel waar alle shapes op komen.
+        /// </summary>
+        public System.Windows.Forms.Panel panel1;
     }
 }
 

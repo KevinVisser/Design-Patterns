@@ -8,20 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace DesignPatterns
 {
     public partial class Form1 : Form
     {
         Pen pen = new Pen(Color.Black, 5);
+        
         Graphics g;
         Rectangle rect;
         Size userSize = new Size(50, 50);
         Point location;
-        bool rectangle = true;
+        Point putShapeOnPanel;
+        bool rectangle = false;
         bool ellipse = false;
         bool select = false;
 
+        /// <summary>
+        /// Maak het form
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -31,7 +35,7 @@ namespace DesignPatterns
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             location = e.Location;
-            panel1.Invalidate();
+            putShapeOnPanel = e.Location;
         }
 
         private void EllipseButton_Click(object sender, EventArgs e)
@@ -57,29 +61,72 @@ namespace DesignPatterns
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            location.X -= userSize.Width / 2;
-            location.Y -= userSize.Height / 2;
+            Panel p = sender as Panel;
+            
+            //Om ervoor te zorgen dat de shape mooi in het midden van de muis wordt afgedrukt.
+            putShapeOnPanel.X -= userSize.Width / 2;
+            putShapeOnPanel.Y -= userSize.Height / 2;
+
+            //als de rectangle button is geklikt.
             if(rectangle)
-            {
-                rect = new Rectangle(location, userSize);
-                e.Graphics.FillRectangle(new SolidBrush(Color.Black), rect);
-                Console.WriteLine(this.HasChildren);
+            {                
+                PictureBox b = new PictureBox();
+                b.Size = userSize;                
+                b.Location = putShapeOnPanel;
+                b.Paint += B_Paint;
+                b.Click += B_Click;
+                p.Controls.Add(b);
             }
             if (ellipse)
             {
-                rect = new Rectangle(location, userSize);
+                rect = new Rectangle(putShapeOnPanel, userSize);
                 e.Graphics.FillEllipse(new SolidBrush(Color.Black), rect);
-                Console.WriteLine(this.HasChildren);
+                Console.WriteLine(p.HasChildren);
             }
+            
+        }
+
+        /// <summary>
+        /// Als je op select klikt en je klikt op een figuur(wat eigenlijk een picturebox is)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void B_Click(object sender, EventArgs e)
+        {
+            PictureBox shape = (PictureBox)sender;
+            //dus wanneer je op een shape drukt gaat hij kijken of je panel children heeft(dus pictureboxes) en daarna verplaatst hij hem ergens.
             if (select)
             {
                 if (panel1.HasChildren)
                 {
-                    Console.WriteLine(panel1.GetChildAtPoint(location));
-                    Console.WriteLine("Hallo");
+                    //Dit moet nog even dat wanneer je hem selecteert dat je dan een 2e point moet krijgen(via de muis) zodat hij daar naar toe verplaatst
+                    shape.Location = new Point(shape.Location.X + 25, shape.Location.Y + 25);
                 }
             }
-            
+        }
+
+
+        private void B_MouseDown(object sender, MouseEventArgs e)
+        {
+            PictureBox p = (PictureBox)sender;
+            location = e.Location;
+        }
+
+        /// <summary>
+        /// Om de shape die je hebt ingeladen in het panel om die in de picturebox te stoppen en op het scherm laten zien.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void B_Paint(object sender, PaintEventArgs e)
+        {
+            PictureBox p = sender as PictureBox;
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, p.Width, p.Height));            
+        }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            Panel panel = (Panel)sender;
+            panel.Refresh();
         }
     }
 }
