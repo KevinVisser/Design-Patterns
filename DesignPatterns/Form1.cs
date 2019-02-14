@@ -18,13 +18,12 @@ namespace DesignPatterns
         Size userSize = new Size(50, 50);
         Point location;
         Point putShapeOnPanel;
+        Point loc2;
+        Test selectedItem;
         bool rectangle = false;
         bool ellipse = false;
         bool select = false;
-
-        /// <summary>
-        /// Maak het form
-        /// </summary>
+        
         public Form1()
         {
             InitializeComponent();
@@ -61,7 +60,7 @@ namespace DesignPatterns
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            Panel p = sender as Panel;
+            Test p = sender as Test;
             
             //Om ervoor te zorgen dat de shape mooi in het midden van de muis wordt afgedrukt.
             putShapeOnPanel.X -= userSize.Width / 2;
@@ -98,17 +97,17 @@ namespace DesignPatterns
 
         private void B_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && select)
-            {
-                Test p = (Test)sender;
-                Console.WriteLine(e.Location);
-                Console.WriteLine(p.Parent.PointToClient(e.Location));
-                Console.WriteLine(p.Parent.PointToScreen(e.Location));
-                location = p.Parent.PointToScreen(e.Location);
-                p.Location = location;
-                //Point loc2 = location;
-                panel1.Invalidate();
-            }
+            //if (e.Button == MouseButtons.Left && select)
+            //{
+            //    Test p = (Test)sender;
+            //    selectedItem = p;
+            //    //location = p.Parent.PointToScreen(e.Location);
+            //    //Console.WriteLine("Loc2:" + loc2);
+            //    //Console.WriteLine("Location:" + location);
+            //    //p.Location = location;
+            //    Invalidate();
+            //    //loc2 = location;
+            //}
         }
 
         private void Box_Paint(object sender, PaintEventArgs e)
@@ -116,17 +115,21 @@ namespace DesignPatterns
             Test p = (Test)sender;
             e.Graphics.FillEllipse(new SolidBrush(Color.Black), new Rectangle(0, 0, p.Width, p.Height));
         }
-
-        /// <summary>
-        /// Als je op select klikt en je klikt op een figuur(wat eigenlijk een picturebox is)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         private void B_Click(object sender, EventArgs e)
         {
             Test shape = (Test)sender;
+            if(selectedItem == null)
+            {
+                selectedItem = shape;
+            }
+            else
+            {
+                selectedItem = null;
+            }
+            //Invalidate();
             //dus wanneer je op een shape drukt gaat hij kijken of je panel children heeft(dus pictureboxes) en daarna verplaatst hij hem ergens.
-            
+
         }
 
         private void B_MouseDown(object sender, MouseEventArgs e)
@@ -149,12 +152,7 @@ namespace DesignPatterns
                 }
             }
         }
-
-        /// <summary>
-        /// Om de shape die je hebt ingeladen in het panel om die in de picturebox te stoppen en op het scherm laten zien.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         private void B_Paint(object sender, PaintEventArgs e)
         {
             Test p = sender as Test;
@@ -163,8 +161,24 @@ namespace DesignPatterns
 
         private void panel1_Click(object sender, EventArgs e)
         {
-            Panel panel = (Panel)sender;
+            Test panel = (Test)sender;
+            if(selectedItem != null)
+            {
+                selectedItem = null;
+            }
             panel.Invalidate();
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            location = e.Location;
+            ;
+            if (select && selectedItem != null)
+            {
+                location = selectedItem.Parent.Parent.PointToScreen(location);
+                selectedItem.Location = location;
+                Invalidate();
+            }
         }
     }
 }
