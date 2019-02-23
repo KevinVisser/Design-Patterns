@@ -23,6 +23,7 @@ namespace DesignPatterns
         bool rectangle = false;
         bool ellipse = false;
         bool select = false;
+        bool resizeButton = false;
         
         public Form1()
         {
@@ -42,6 +43,7 @@ namespace DesignPatterns
             ellipse = true;
             rectangle = false;
             select = false;
+            resizeButton = false;
         }
 
         private void RectangleButton_Click(object sender, EventArgs e)
@@ -49,6 +51,7 @@ namespace DesignPatterns
             rectangle = true;
             select = false;
             ellipse = false;
+            resizeButton = false;
         }
 
         private void SelectButton_Click(object sender, EventArgs e)
@@ -56,6 +59,14 @@ namespace DesignPatterns
             select = true;
             rectangle = false;
             ellipse = false;
+            resizeButton = false;
+        }
+        private void Resize_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            resizeButton = true;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -118,6 +129,7 @@ namespace DesignPatterns
         private void B_Click(object sender, EventArgs e)
         {
             Test shape = (Test)sender;
+            MouseEventArgs mouse = e as MouseEventArgs;
             if(selectedItem == null)
             {
                 selectedItem = shape;
@@ -125,6 +137,43 @@ namespace DesignPatterns
             else
             {
                 selectedItem = null;
+            }
+            if (resizeButton)
+            {
+
+                switch (mouse.Button)
+                {
+
+                    case MouseButtons.Left:
+                        // Left click resize 1.5 bigger
+                        if (selectedItem != null)
+                        {
+                            userSize = new Size(userSize.Width + 10, userSize.Height + 10);
+                            shape.Size = userSize;
+                            //selectedItem = shape;
+                            //clickeven shape 1.5  bigger
+
+                        }
+                        else
+                        {
+                            selectedItem = null;
+                        }
+                        break;
+
+                    case MouseButtons.Right:
+                        // Right click resize 1.5 smaller
+                        if (selectedItem != null)
+                        {
+                            userSize = new Size(userSize.Width - 10, userSize.Height - 10);
+                            shape.Size = userSize;
+                        }
+                        else
+                        {
+                            selectedItem = null;
+                        }
+                        break;
+
+                }
             }
         }
         
@@ -143,5 +192,12 @@ namespace DesignPatterns
             }
             panel.Invalidate();
         }
+        private void Control1_MouseClick(Object sender, MouseEventArgs e)
+        {
+            Test shape = (Test)sender;
+            
+
+        }
+
     }
 }
