@@ -34,7 +34,7 @@
             this.RectangleButton = new System.Windows.Forms.Button();
             this.EllipseButton = new System.Windows.Forms.Button();
             this.SelectButton = new System.Windows.Forms.Button();
-            this.panel1 = new DesignPatterns.Test();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.Resize = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -116,7 +116,8 @@
         private System.Windows.Forms.Button RectangleButton;
         private System.Windows.Forms.Button EllipseButton;
         private System.Windows.Forms.Button SelectButton;
-        public Test panel1;
+        //public Shape panel1;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Resize;
     }
 }
