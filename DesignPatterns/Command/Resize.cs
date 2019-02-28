@@ -10,9 +10,16 @@ namespace DesignPatterns.Command
 {
     class Resize : ICommand
     {
+        private Shape _r;
+
+        public Resize(Shape r)
+        {
+            _r = r;
+        }
+
         public void Execute(EventArgs e)
         {
-            throw new NotImplementedException();
+            _r.Resize();
         }
     }
 }

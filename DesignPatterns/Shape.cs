@@ -20,6 +20,11 @@ namespace DesignPatterns
 
         }
 
+        public new virtual void Resize()
+        {
+
+        }
+
         public virtual void Select(Shape r)
         {
             if (selectedItem == null)
