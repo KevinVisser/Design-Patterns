@@ -19,7 +19,7 @@ namespace DesignPatterns.Command
 
         public void Execute(EventArgs e)
         {
-            _r.Resize();
+            _r.Resize(_r, e);
         }
     }
 }

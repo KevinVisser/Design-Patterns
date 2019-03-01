@@ -18,10 +18,9 @@ namespace DesignPatterns
             this.SetStyle(ControlStyles.UserPaint, true);
         }
 
-        public override void Draw(EventArgs e)
+        public override void Draw(PaintEventArgs e, Size size)
         {
-            PaintEventArgs paint = (PaintEventArgs)e;
-            paint.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, _userSize.Width, _userSize.Height));
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, size.Width, size.Height));
         }
     }
 }

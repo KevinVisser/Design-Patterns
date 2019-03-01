@@ -26,24 +26,18 @@ namespace DesignPatterns
         Graphics g;
         Point location;
         Point putShapeOnPanel;
-        Shape selectedItem;
+        
+        //Booleans voor de knoppen(kunnen we later enum voor maken misschien)
         bool rectangle = false;
         bool ellipse = false;
         bool select = false;
-        bool resizeButton = false;
+        bool resize = false;
+        bool move = false;
         
         public Form1()
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
-
-            panel1.Tag = "panel1";
-
-
-            Shape rect = new Rect(userSize);
-            Shape ellipse = new Ellipse(userSize);
-            drawRectangleCommand = new DrawRectangle(rect);
-            drawEllipseCommand = new DrawEllipse(ellipse);
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -57,7 +51,8 @@ namespace DesignPatterns
             ellipse = true;
             rectangle = false;
             select = false;
-            resizeButton = false;
+            resize = false;
+            move = false;
         }
 
         private void RectangleButton_Click(object sender, EventArgs e)
@@ -65,7 +60,8 @@ namespace DesignPatterns
             rectangle = true;
             select = false;
             ellipse = false;
-            resizeButton = false;
+            resize = false;
+            move = false;
         }
 
         private void SelectButton_Click(object sender, EventArgs e)
@@ -73,14 +69,25 @@ namespace DesignPatterns
             select = true;
             rectangle = false;
             ellipse = false;
-            resizeButton = false;
+            resize = false;
+            move = false;
         }
         private void Resize_Click(object sender, EventArgs e)
         {
             select = false;
             rectangle = false;
             ellipse = false;
-            resizeButton = true;
+            resize = true;
+            move = false;
+        }
+
+        private void MoveButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = true;
+            resize = false;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -115,74 +122,55 @@ namespace DesignPatterns
                 box.Click += B_Click;
                 box.MouseMove += B_MouseMove;
                 p.Controls.Add(box);
-            }
-            
+            }            
         }
 
         private void B_MouseMove(object sender, MouseEventArgs e)
         {
-            if (resizeButton)
+            if (move)
             {
                 moveCommand = new Move((Shape)sender);
                 moveCommand.Execute(e);
-                this.Invalidate();
+            }
+        }        
+        
+        private void B_Click(object sender, EventArgs e)
+        {
+            if (select || move)
+            {
+                selectCommand = new Select((Shape)sender);
+                selectCommand.Execute(e);
+            }
+            if (resize)
+            {
+                resizeCommand = new Resize((Shape)sender);
+                resizeCommand.Execute(e);
+                this.Refresh();
             }
         }
 
         private void Box_Paint(object sender, PaintEventArgs e)
         {
+            Shape ellipse = (Shape)sender;
+            drawEllipseCommand = new DrawEllipse(new Ellipse(ellipse.Size));
             drawEllipseCommand.Execute(e);
+            this.Invalidate();
         }
-        
-        private void B_Click(object sender, EventArgs e)
-        {
-            Shape shape = (Shape)sender;
-            if (select || resizeButton)
-            {
-                selectCommand = new Select(shape);
-                selectCommand.Execute(e);
-            }
-            //if (resizeButton)
-            //{
 
-            //    switch (mouse.Button)
-            //    {
-
-            //        case MouseButtons.Left:
-            //            // Left click resize 1.5 bigger
-            //            if (selectedItem != null)
-            //            {
-            //                userSize = new Size(userSize.Width + 10, userSize.Height + 10);
-            //                shape.Size = userSize;
-            //                //selectedItem = shape;
-            //                //clickeven shape 1.5  bigger
-
-            //            }
-            //            break;
-
-            //        case MouseButtons.Right:
-            //            // Right click resize 1.5 smaller
-            //            if (selectedItem != null)
-            //            {
-            //                userSize = new Size(userSize.Width - 10, userSize.Height - 10);
-            //                shape.Size = userSize;
-            //            }
-            //            break;
-
-            //    }
-            //}
-        }
-        
         private void B_Paint(object sender, PaintEventArgs e)
         {
+            Shape rectangle = (Shape)sender;
+            drawRectangleCommand = new DrawRectangle(new Rect(rectangle.Size));
             drawRectangleCommand.Execute(e);
+            this.Invalidate();
         }
 
         private void panel1_Click(object sender, EventArgs e)
-        {
-            
+        {            
             Panel panel = (Panel)sender;
             panel.Invalidate();
         }
+
+        
     }
 }
