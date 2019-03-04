@@ -16,12 +16,9 @@ namespace DesignPatterns
         Pen pen = new Pen(Color.Black, 5);
 
         //Command Pattern
+        CommandManager commandManager = new CommandManager();
+
         Size userSize = new Size(50, 50);
-        DrawRectangle drawRectangleCommand;
-        DrawEllipse drawEllipseCommand;
-        Select selectCommand;
-        Resize resizeCommand;
-        Move moveCommand;
 
         Graphics g;
         Point location;
@@ -129,22 +126,27 @@ namespace DesignPatterns
         {
             if (move)
             {
-                moveCommand = new Move((Shape)sender);
-                moveCommand.Execute(e);
+                commandManager.ExecuteCommand(new Move((Shape)sender), e);
             }
         }        
         
         private void B_Click(object sender, EventArgs e)
         {
+            MouseEventArgs mouse = (MouseEventArgs)e;
             if (select || move)
             {
-                selectCommand = new Select((Shape)sender);
-                selectCommand.Execute(e);
+                commandManager.ExecuteCommand(new Select((Shape)sender), e);
             }
             if (resize)
             {
-                resizeCommand = new Resize((Shape)sender);
-                resizeCommand.Execute(e);
+                if(mouse.Button == MouseButtons.Left)
+                {
+                    commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
+                }
+                else if(mouse.Button == MouseButtons.Right)
+                {
+                    commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
+                }
                 this.Refresh();
             }
         }
@@ -152,16 +154,14 @@ namespace DesignPatterns
         private void Box_Paint(object sender, PaintEventArgs e)
         {
             Shape ellipse = (Shape)sender;
-            drawEllipseCommand = new DrawEllipse(new Ellipse(ellipse.Size));
-            drawEllipseCommand.Execute(e);
+            commandManager.ExecuteCommand(new DrawEllipse(new Ellipse(ellipse.Size)), e);
             this.Invalidate();
         }
 
         private void B_Paint(object sender, PaintEventArgs e)
         {
             Shape rectangle = (Shape)sender;
-            drawRectangleCommand = new DrawRectangle(new Rect(rectangle.Size));
-            drawRectangleCommand.Execute(e);
+            commandManager.ExecuteCommand(new DrawRectangle(new Rect(rectangle.Size)), e);
             this.Invalidate();
         }
 
@@ -171,6 +171,16 @@ namespace DesignPatterns
             panel.Invalidate();
         }
 
-        
+        private void UndoButton_Click(object sender, EventArgs e)
+        {
+            commandManager.Undo(e);
+            this.Refresh();
+        }
+
+        private void RedoButton_Click(object sender, EventArgs e)
+        {
+            commandManager.Redo(e);
+            this.Refresh();
+        }
     }
 }

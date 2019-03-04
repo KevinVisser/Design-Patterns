@@ -16,21 +16,18 @@ namespace DesignPatterns
 
         public virtual void Draw(PaintEventArgs e, Size s){}
 
-        public new virtual void Resize(Shape r, EventArgs e)
+        public virtual void IncreaseSize(Shape r, EventArgs e)
         {
-            MouseEventArgs mouse = (MouseEventArgs)e;
             _userSize = r.Size;
-            switch (mouse.Button)
-            {
-                case MouseButtons.Left:
-                    _userSize = new Size(_userSize.Width + 10, _userSize.Height + 10);
-                    r.Size = _userSize;
-                    break;
-                case MouseButtons.Right:
-                    _userSize = new Size(_userSize.Width - 10, _userSize.Height - 10);
-                    r.Size = _userSize;
-                    break;
-            }
+            _userSize = new Size(_userSize.Width + 10, _userSize.Height + 10);
+            r.Size = _userSize;
+        }
+
+        public virtual void DecreaseSize(Shape r, EventArgs e)
+        {
+            _userSize = r.Size;
+            _userSize = new Size(_userSize.Width - 10, _userSize.Height - 10);
+            r.Size = _userSize;
         }
 
         public virtual void Select(Shape r)

@@ -37,6 +37,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.ResizeButton = new System.Windows.Forms.Button();
             this.MoveButton = new System.Windows.Forms.Button();
+            this.UndoButton = new System.Windows.Forms.Button();
+            this.RedoButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RectangleButton
@@ -100,11 +102,33 @@
             this.MoveButton.UseVisualStyleBackColor = true;
             this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
             // 
+            // UndoButton
+            // 
+            this.UndoButton.Location = new System.Drawing.Point(524, 257);
+            this.UndoButton.Name = "UndoButton";
+            this.UndoButton.Size = new System.Drawing.Size(75, 23);
+            this.UndoButton.TabIndex = 6;
+            this.UndoButton.Text = "Undo";
+            this.UndoButton.UseVisualStyleBackColor = true;
+            this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            // 
+            // RedoButton
+            // 
+            this.RedoButton.Location = new System.Drawing.Point(605, 257);
+            this.RedoButton.Name = "RedoButton";
+            this.RedoButton.Size = new System.Drawing.Size(75, 23);
+            this.RedoButton.TabIndex = 7;
+            this.RedoButton.Text = "Redo";
+            this.RedoButton.UseVisualStyleBackColor = true;
+            this.RedoButton.Click += new System.EventHandler(this.RedoButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 403);
+            this.ClientSize = new System.Drawing.Size(690, 404);
+            this.Controls.Add(this.RedoButton);
+            this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.MoveButton);
             this.Controls.Add(this.ResizeButton);
             this.Controls.Add(this.SelectButton);
@@ -128,6 +152,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ResizeButton;
         private System.Windows.Forms.Button MoveButton;
+        private System.Windows.Forms.Button UndoButton;
+        private System.Windows.Forms.Button RedoButton;
     }
 }
 
