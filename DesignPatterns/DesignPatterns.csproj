@@ -48,11 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\CommandManager.cs" />
+    <Compile Include="Command\DecreaseSizeCommand.cs" />
     <Compile Include="Command\DrawEllipse.cs" />
     <Compile Include="Command\DrawRectangle.cs" />
     <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\IncreaseSizeCommand.cs" />
+    <Compile Include="Command\IUndoableCommand.cs" />
     <Compile Include="Command\Move.cs" />
-    <Compile Include="Command\Resize.cs" />
+    <Compile Include="Command\SaveCommand.cs" />
     <Compile Include="Command\Select.cs" />
     <Compile Include="Ellipse.cs">
       <SubType>Component</SubType>
@@ -68,6 +72,7 @@
     <Compile Include="Rect.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Save.cs" />
     <Compile Include="Shape.cs">
       <SubType>Component</SubType>
     </Compile>
