@@ -22,7 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\DesignPatterns.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,6 +56,7 @@
     <Compile Include="Command\IncreaseSizeCommand.cs" />
     <Compile Include="Command\IUndoableCommand.cs" />
     <Compile Include="Command\Move.cs" />
+    <Compile Include="Command\SaveCommand.cs" />
     <Compile Include="Command\Select.cs" />
     <Compile Include="Ellipse.cs">
       <SubType>Component</SubType>
@@ -70,6 +72,7 @@
     <Compile Include="Rect.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Save.cs" />
     <Compile Include="Shape.cs">
       <SubType>Component</SubType>
     </Compile>

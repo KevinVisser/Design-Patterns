@@ -182,5 +182,10 @@ namespace DesignPatterns
             commandManager.Redo(e);
             this.Refresh();
         }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            commandManager.ExecuteCommand(new SaveCommand(panel1), e);
+        }
     }
 }

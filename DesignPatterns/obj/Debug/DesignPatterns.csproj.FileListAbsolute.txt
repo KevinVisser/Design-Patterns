@@ -28,3 +28,13 @@ C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debu
 C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.exe
 C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.pdb
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.xml
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\bin\Debug\DesignPatterns.exe.config
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\bin\Debug\DesignPatterns.exe
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\bin\Debug\DesignPatterns.pdb
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.Form1.resources
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.Properties.Resources.resources
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.csproj.GenerateResource.cache
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.csproj.CoreCompileInputs.cache
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.exe
+C:\Users\Asscher\Desktop\kankerashwin\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.pdb
