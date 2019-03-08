@@ -10,8 +10,10 @@ namespace DesignPatterns
 {
     class Ellipse : Shape
     {
+
         public Ellipse(Size userSize)
         {
+            this.type = "Ellipse";
             this._userSize = userSize;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -21,6 +23,11 @@ namespace DesignPatterns
         public override void Draw(PaintEventArgs e, Size size)
         {
             e.Graphics.FillEllipse(new SolidBrush(Color.Black), new Rectangle(0, 0, size.Width, size.Height));
+        }
+
+        public override string GetTypeBack()
+        {
+            return type;
         }
     }
 }

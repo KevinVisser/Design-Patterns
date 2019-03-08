@@ -39,6 +39,8 @@
             this.MoveButton = new System.Windows.Forms.Button();
             this.UndoButton = new System.Windows.Forms.Button();
             this.RedoButton = new System.Windows.Forms.Button();
+            this.GroupButton = new System.Windows.Forms.Button();
+            this.DoneButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RectangleButton
@@ -122,11 +124,33 @@
             this.RedoButton.UseVisualStyleBackColor = true;
             this.RedoButton.Click += new System.EventHandler(this.RedoButton_Click);
             // 
+            // GroupButton
+            // 
+            this.GroupButton.Location = new System.Drawing.Point(525, 216);
+            this.GroupButton.Name = "GroupButton";
+            this.GroupButton.Size = new System.Drawing.Size(75, 23);
+            this.GroupButton.TabIndex = 8;
+            this.GroupButton.Text = "Group";
+            this.GroupButton.UseVisualStyleBackColor = true;
+            this.GroupButton.Click += new System.EventHandler(this.GroupButton_Click);
+            // 
+            // DoneButton
+            // 
+            this.DoneButton.Location = new System.Drawing.Point(603, 369);
+            this.DoneButton.Name = "DoneButton";
+            this.DoneButton.Size = new System.Drawing.Size(75, 23);
+            this.DoneButton.TabIndex = 9;
+            this.DoneButton.Text = "Done";
+            this.DoneButton.UseVisualStyleBackColor = true;
+            this.DoneButton.Click += new System.EventHandler(this.DoneButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 404);
+            this.Controls.Add(this.DoneButton);
+            this.Controls.Add(this.GroupButton);
             this.Controls.Add(this.RedoButton);
             this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.MoveButton);
@@ -154,6 +178,8 @@
         private System.Windows.Forms.Button MoveButton;
         private System.Windows.Forms.Button UndoButton;
         private System.Windows.Forms.Button RedoButton;
+        private System.Windows.Forms.Button GroupButton;
+        private System.Windows.Forms.Button DoneButton;
     }
 }
 

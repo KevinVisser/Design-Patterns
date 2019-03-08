@@ -23,13 +23,15 @@ namespace DesignPatterns
         Graphics g;
         Point location;
         Point putShapeOnPanel;
-        
+        List<Shape> shapeList = new List<Shape>();
+
         //Booleans voor de knoppen(kunnen we later enum voor maken misschien)
         bool rectangle = false;
         bool ellipse = false;
         bool select = false;
         bool resize = false;
         bool move = false;
+        bool group = false;
         
         public Form1()
         {
@@ -50,6 +52,7 @@ namespace DesignPatterns
             select = false;
             resize = false;
             move = false;
+            group = false;
         }
 
         private void RectangleButton_Click(object sender, EventArgs e)
@@ -59,6 +62,7 @@ namespace DesignPatterns
             ellipse = false;
             resize = false;
             move = false;
+            group = false;
         }
 
         private void SelectButton_Click(object sender, EventArgs e)
@@ -68,6 +72,7 @@ namespace DesignPatterns
             ellipse = false;
             resize = false;
             move = false;
+            group = false;
         }
         private void Resize_Click(object sender, EventArgs e)
         {
@@ -76,6 +81,7 @@ namespace DesignPatterns
             ellipse = false;
             resize = true;
             move = false;
+            group = false;
         }
 
         private void MoveButton_Click(object sender, EventArgs e)
@@ -85,6 +91,7 @@ namespace DesignPatterns
             ellipse = false;
             move = true;
             resize = false;
+            group = false;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -133,8 +140,17 @@ namespace DesignPatterns
         private void B_Click(object sender, EventArgs e)
         {
             MouseEventArgs mouse = (MouseEventArgs)e;
-            if (select || move)
+
+            if (select)
             {
+                Shape shape = (Shape)sender;
+                shape.ListGroup();
+            }
+
+            if (move)
+            {
+                Shape shape = (Shape)sender;
+                Console.WriteLine(shape.GetShapesInGroup().Count());
                 commandManager.ExecuteCommand(new Select((Shape)sender), e);
             }
             if (resize)
@@ -148,6 +164,10 @@ namespace DesignPatterns
                     commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
                 }
                 this.Refresh();
+            }
+            if(group)
+            {
+                shapeList.Add((Shape)sender);
             }
         }
 
@@ -181,6 +201,28 @@ namespace DesignPatterns
         {
             commandManager.Redo(e);
             this.Refresh();
+        }
+
+        private void GroupButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = true;            
+        }
+
+        private void DoneButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = false;
+            commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
+            shapeList.Clear();
         }
     }
 }
