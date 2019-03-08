@@ -41,13 +41,15 @@
             this.RedoButton = new System.Windows.Forms.Button();
             this.GroupButton = new System.Windows.Forms.Button();
             this.DoneButton = new System.Windows.Forms.Button();
+            this.GroupMoveButton = new System.Windows.Forms.Button();
+            this.GroupResizeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RectangleButton
             // 
             this.RectangleButton.Location = new System.Drawing.Point(524, 10);
             this.RectangleButton.Name = "RectangleButton";
-            this.RectangleButton.Size = new System.Drawing.Size(75, 23);
+            this.RectangleButton.Size = new System.Drawing.Size(85, 23);
             this.RectangleButton.TabIndex = 1;
             this.RectangleButton.Text = "Rectangle";
             this.RectangleButton.UseVisualStyleBackColor = true;
@@ -57,7 +59,7 @@
             // 
             this.EllipseButton.Location = new System.Drawing.Point(524, 39);
             this.EllipseButton.Name = "EllipseButton";
-            this.EllipseButton.Size = new System.Drawing.Size(75, 23);
+            this.EllipseButton.Size = new System.Drawing.Size(85, 23);
             this.EllipseButton.TabIndex = 2;
             this.EllipseButton.Text = "Ellipse";
             this.EllipseButton.UseVisualStyleBackColor = true;
@@ -67,7 +69,7 @@
             // 
             this.SelectButton.Location = new System.Drawing.Point(524, 68);
             this.SelectButton.Name = "SelectButton";
-            this.SelectButton.Size = new System.Drawing.Size(75, 23);
+            this.SelectButton.Size = new System.Drawing.Size(85, 23);
             this.SelectButton.TabIndex = 3;
             this.SelectButton.Text = "Select";
             this.SelectButton.UseVisualStyleBackColor = true;
@@ -88,7 +90,7 @@
             // 
             this.ResizeButton.Location = new System.Drawing.Point(524, 98);
             this.ResizeButton.Name = "ResizeButton";
-            this.ResizeButton.Size = new System.Drawing.Size(75, 23);
+            this.ResizeButton.Size = new System.Drawing.Size(85, 23);
             this.ResizeButton.TabIndex = 4;
             this.ResizeButton.Text = "Resize";
             this.ResizeButton.UseVisualStyleBackColor = true;
@@ -98,7 +100,7 @@
             // 
             this.MoveButton.Location = new System.Drawing.Point(524, 127);
             this.MoveButton.Name = "MoveButton";
-            this.MoveButton.Size = new System.Drawing.Size(75, 23);
+            this.MoveButton.Size = new System.Drawing.Size(85, 23);
             this.MoveButton.TabIndex = 5;
             this.MoveButton.Text = "Move";
             this.MoveButton.UseVisualStyleBackColor = true;
@@ -106,7 +108,7 @@
             // 
             // UndoButton
             // 
-            this.UndoButton.Location = new System.Drawing.Point(524, 257);
+            this.UndoButton.Location = new System.Drawing.Point(524, 328);
             this.UndoButton.Name = "UndoButton";
             this.UndoButton.Size = new System.Drawing.Size(75, 23);
             this.UndoButton.TabIndex = 6;
@@ -116,7 +118,7 @@
             // 
             // RedoButton
             // 
-            this.RedoButton.Location = new System.Drawing.Point(605, 257);
+            this.RedoButton.Location = new System.Drawing.Point(605, 328);
             this.RedoButton.Name = "RedoButton";
             this.RedoButton.Size = new System.Drawing.Size(75, 23);
             this.RedoButton.TabIndex = 7;
@@ -126,9 +128,9 @@
             // 
             // GroupButton
             // 
-            this.GroupButton.Location = new System.Drawing.Point(525, 216);
+            this.GroupButton.Location = new System.Drawing.Point(524, 185);
             this.GroupButton.Name = "GroupButton";
-            this.GroupButton.Size = new System.Drawing.Size(75, 23);
+            this.GroupButton.Size = new System.Drawing.Size(85, 23);
             this.GroupButton.TabIndex = 8;
             this.GroupButton.Text = "Group";
             this.GroupButton.UseVisualStyleBackColor = true;
@@ -144,11 +146,33 @@
             this.DoneButton.UseVisualStyleBackColor = true;
             this.DoneButton.Click += new System.EventHandler(this.DoneButton_Click);
             // 
+            // GroupMoveButton
+            // 
+            this.GroupMoveButton.Location = new System.Drawing.Point(524, 214);
+            this.GroupMoveButton.Name = "GroupMoveButton";
+            this.GroupMoveButton.Size = new System.Drawing.Size(85, 23);
+            this.GroupMoveButton.TabIndex = 10;
+            this.GroupMoveButton.Text = "Group Move";
+            this.GroupMoveButton.UseVisualStyleBackColor = true;
+            this.GroupMoveButton.Click += new System.EventHandler(this.GroupMoveButton_Click);
+            // 
+            // GroupResizeButton
+            // 
+            this.GroupResizeButton.Location = new System.Drawing.Point(524, 243);
+            this.GroupResizeButton.Name = "GroupResizeButton";
+            this.GroupResizeButton.Size = new System.Drawing.Size(85, 23);
+            this.GroupResizeButton.TabIndex = 11;
+            this.GroupResizeButton.Text = "Group Resize";
+            this.GroupResizeButton.UseVisualStyleBackColor = true;
+            this.GroupResizeButton.Click += new System.EventHandler(this.GroupResizeButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 404);
+            this.Controls.Add(this.GroupResizeButton);
+            this.Controls.Add(this.GroupMoveButton);
             this.Controls.Add(this.DoneButton);
             this.Controls.Add(this.GroupButton);
             this.Controls.Add(this.RedoButton);
@@ -180,6 +204,8 @@
         private System.Windows.Forms.Button RedoButton;
         private System.Windows.Forms.Button GroupButton;
         private System.Windows.Forms.Button DoneButton;
+        private System.Windows.Forms.Button GroupMoveButton;
+        private System.Windows.Forms.Button GroupResizeButton;
     }
 }
 

@@ -22,18 +22,18 @@ namespace DesignPatterns
             return "shape";
         }
 
-        public virtual void IncreaseSize(Shape r, EventArgs e)
+        public virtual void IncreaseSize(EventArgs e)
         {
-            _userSize = r.Size;
+            _userSize = this.Size;
             _userSize = new Size(_userSize.Width + 10, _userSize.Height + 10);
-            r.Size = _userSize;
+            this.Size = _userSize;
         }
 
-        public virtual void DecreaseSize(Shape r, EventArgs e)
+        public virtual void DecreaseSize(EventArgs e)
         {
-            _userSize = r.Size;
+            _userSize = this.Size;
             _userSize = new Size(_userSize.Width - 10, _userSize.Height - 10);
-            r.Size = _userSize;
+            this.Size = _userSize;
         }
 
         public virtual void Select(Shape r)

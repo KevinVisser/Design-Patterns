@@ -17,12 +17,12 @@ namespace DesignPatterns.Command
 
         public void Execute(EventArgs e)
         {
-            this._r.IncreaseSize(_r, e);
+            this._r.IncreaseSize(e);
         }
 
         public void Undo(EventArgs e)
         {
-            this._r.DecreaseSize(_r, e);
+            this._r.DecreaseSize(e);
         }
     }
 }

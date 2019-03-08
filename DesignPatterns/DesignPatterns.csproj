@@ -53,6 +53,9 @@
     <Compile Include="Command\DrawEllipse.cs" />
     <Compile Include="Command\DrawRectangle.cs" />
     <Compile Include="Command\GroupCommand.cs" />
+    <Compile Include="Command\GroupDecreaseSizeCommand.cs" />
+    <Compile Include="Command\GroupIncreaseSizeCommand.cs" />
+    <Compile Include="Command\GroupMoveCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\IncreaseSizeCommand.cs" />
     <Compile Include="Command\IUndoableCommand.cs" />

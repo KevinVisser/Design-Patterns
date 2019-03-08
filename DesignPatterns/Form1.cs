@@ -32,6 +32,8 @@ namespace DesignPatterns
         bool resize = false;
         bool move = false;
         bool group = false;
+        bool groupMove = false;
+        bool groupResize = false;
         
         public Form1()
         {
@@ -45,6 +47,7 @@ namespace DesignPatterns
             putShapeOnPanel = e.Location;
         }
 
+        #region Buttons
         private void EllipseButton_Click(object sender, EventArgs e)
         {
             ellipse = true;
@@ -53,6 +56,8 @@ namespace DesignPatterns
             resize = false;
             move = false;
             group = false;
+            groupMove = false;
+            groupResize = false;
         }
 
         private void RectangleButton_Click(object sender, EventArgs e)
@@ -63,6 +68,8 @@ namespace DesignPatterns
             resize = false;
             move = false;
             group = false;
+            groupMove = false;
+            groupResize = false;
         }
 
         private void SelectButton_Click(object sender, EventArgs e)
@@ -73,6 +80,8 @@ namespace DesignPatterns
             resize = false;
             move = false;
             group = false;
+            groupMove = false;
+            groupResize = false;
         }
         private void Resize_Click(object sender, EventArgs e)
         {
@@ -82,6 +91,8 @@ namespace DesignPatterns
             resize = true;
             move = false;
             group = false;
+            groupMove = false;
+            groupResize = false;
         }
 
         private void MoveButton_Click(object sender, EventArgs e)
@@ -92,7 +103,46 @@ namespace DesignPatterns
             move = true;
             resize = false;
             group = false;
+            groupMove = false;
+            groupResize = false;
         }
+
+        private void GroupButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = true;
+            groupMove = false;
+            groupResize = false;
+        }
+
+        private void GroupMoveButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = false;
+            groupMove = true;
+            groupResize = false;
+        }
+
+        private void GroupResizeButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = false;
+            groupMove = false;
+            groupResize = true;
+        }
+        #endregion
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -135,6 +185,10 @@ namespace DesignPatterns
             {
                 commandManager.ExecuteCommand(new Move((Shape)sender), e);
             }
+            if(groupMove)
+            {
+                commandManager.ExecuteCommand(new GroupMoveCommand((Shape)sender), e);
+            }
         }        
         
         private void B_Click(object sender, EventArgs e)
@@ -147,7 +201,7 @@ namespace DesignPatterns
                 shape.ListGroup();
             }
 
-            if (move)
+            if (move || groupMove)
             {
                 Shape shape = (Shape)sender;
                 Console.WriteLine(shape.GetShapesInGroup().Count());
@@ -165,9 +219,23 @@ namespace DesignPatterns
                 }
                 this.Refresh();
             }
-            if(group)
+
+            
+            if (group)
             {
                 shapeList.Add((Shape)sender);
+            }
+            if (groupResize)
+            {
+                if (mouse.Button == MouseButtons.Left)
+                {
+                    commandManager.ExecuteCommand(new GroupIncreaseSizeCommand((Shape)sender), e);
+                }
+                else if (mouse.Button == MouseButtons.Right)
+                {
+                    commandManager.ExecuteCommand(new GroupDecreaseSizeCommand((Shape)sender), e);
+                }
+                this.Refresh();
             }
         }
 
@@ -201,17 +269,7 @@ namespace DesignPatterns
         {
             commandManager.Redo(e);
             this.Refresh();
-        }
-
-        private void GroupButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = true;            
-        }
+        }        
 
         private void DoneButton_Click(object sender, EventArgs e)
         {
@@ -221,6 +279,8 @@ namespace DesignPatterns
             move = false;
             resize = false;
             group = false;
+            groupMove = false;
+            groupResize = false;
             commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
             shapeList.Clear();
         }
