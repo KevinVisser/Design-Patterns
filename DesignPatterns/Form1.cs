@@ -23,6 +23,7 @@ namespace DesignPatterns
         Graphics g;
         Point location;
         Point putShapeOnPanel;
+        Shape selectedItem;
         List<Shape> shapeList = new List<Shape>();
 
         //Booleans voor de knoppen(kunnen we later enum voor maken misschien)
@@ -41,7 +42,7 @@ namespace DesignPatterns
             g = panel1.CreateGraphics();
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        private void Panel1_MouseDown(object sender, MouseEventArgs e)
         {
             location = e.Location;
             putShapeOnPanel = e.Location;
@@ -144,7 +145,7 @@ namespace DesignPatterns
         }
         #endregion
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void Panel1_Paint(object sender, PaintEventArgs e)
         {
             Panel p = sender as Panel;
             
@@ -162,7 +163,6 @@ namespace DesignPatterns
                 };
                 b.Paint += B_Paint;
                 b.Click += B_Click;
-                b.MouseMove += B_MouseMove;
                 p.Controls.Add(b);
             }
             if (ellipse)
@@ -174,22 +174,9 @@ namespace DesignPatterns
                 };
                 box.Paint += Box_Paint;
                 box.Click += B_Click;
-                box.MouseMove += B_MouseMove;
                 p.Controls.Add(box);
             }            
-        }
-
-        private void B_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (move)
-            {
-                commandManager.ExecuteCommand(new Move((Shape)sender), e);
-            }
-            if(groupMove)
-            {
-                commandManager.ExecuteCommand(new GroupMoveCommand((Shape)sender), e);
-            }
-        }        
+        }   
         
         private void B_Click(object sender, EventArgs e)
         {
@@ -197,16 +184,17 @@ namespace DesignPatterns
 
             if (select)
             {
+                //commandManager.ExecuteCommand(new Select((Shape)sender), e);
                 Shape shape = (Shape)sender;
                 shape.ListGroup();
             }
 
-            if (move || groupMove)
+            if (move)
             {
-                Shape shape = (Shape)sender;
-                Console.WriteLine(shape.GetShapesInGroup().Count());
-                commandManager.ExecuteCommand(new Select((Shape)sender), e);
+                selectedItem = (Shape)sender;
+                commandManager.ExecuteCommand(new Move((Shape)sender), e);
             }
+
             if (resize)
             {
                 if(mouse.Button == MouseButtons.Left)
@@ -219,23 +207,10 @@ namespace DesignPatterns
                 }
                 this.Refresh();
             }
-
             
             if (group)
             {
                 shapeList.Add((Shape)sender);
-            }
-            if (groupResize)
-            {
-                if (mouse.Button == MouseButtons.Left)
-                {
-                    commandManager.ExecuteCommand(new GroupIncreaseSizeCommand((Shape)sender), e);
-                }
-                else if (mouse.Button == MouseButtons.Right)
-                {
-                    commandManager.ExecuteCommand(new GroupDecreaseSizeCommand((Shape)sender), e);
-                }
-                this.Refresh();
             }
         }
 
@@ -253,8 +228,13 @@ namespace DesignPatterns
             this.Invalidate();
         }
 
-        private void panel1_Click(object sender, EventArgs e)
-        {            
+        private void Panel1_Click(object sender, EventArgs e)
+        {
+            if(move && selectedItem != null)
+            {
+                commandManager.ExecuteCommand(new Move(selectedItem), e);
+                selectedItem = null;
+            }
             Panel panel = (Panel)sender;
             panel.Invalidate();
         }

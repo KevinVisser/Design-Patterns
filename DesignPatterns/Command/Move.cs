@@ -19,7 +19,19 @@ namespace DesignPatterns.Command
 
         public void Execute(EventArgs e)
         {
-            _r.Move();
+            if(_r.IsPartOfGroup())
+            {
+                _r.GroupMove();
+                //Group group = _r.BelongsToGroup();
+                //foreach (Shape shape in group.GetShapesInGroup())
+                //{
+                //    shape.GroupMove();
+                //}
+            }
+            else
+            {
+                _r.Move();
+            }
         }
     }
 }

@@ -11,10 +11,12 @@ namespace DesignPatterns
     public class Shape : Panel
     {
         protected Size _userSize;
+        protected Group group;
         protected string type;
         protected Shape selectedItem = null;
         protected Point mouseLocation;
         private List<Shape> shapes = new List<Shape>();
+        protected bool isPartOfGroup = false;
 
         public virtual void Draw(PaintEventArgs e, Size s){}
         public virtual string GetTypeBack()
@@ -36,31 +38,62 @@ namespace DesignPatterns
             this.Size = _userSize;
         }
 
-        public virtual void Select(Shape r)
+        public new virtual void Select()
         {
             if (selectedItem == null)
             {
-                selectedItem = r;
+                selectedItem = this;
             }
             else
             {
                 selectedItem = null;
             }
-            
         }
 
         public new virtual void Move()
         {
-            if(selectedItem == null)
+            if (selectedItem == null)
             {
-                Console.WriteLine("Null");
+                selectedItem = this;
             }
             else
             {
-                mouseLocation = MousePosition;
+                mouseLocation = this.Parent.PointToClient(MousePosition);
                 mouseLocation.X -= (selectedItem.Width / 2);
                 mouseLocation.Y -= (selectedItem.Height / 2);
-                selectedItem.Location = selectedItem.Parent.PointToClient(mouseLocation);
+                this.Location = mouseLocation;
+                selectedItem = null;
+            }
+        }
+
+        public virtual void GroupMove()
+        {
+            if(selectedItem == null)
+            {
+                selectedItem = this;
+            }
+            else
+            {
+                Group group = this.BelongsToGroup();
+                Point offset = new Point();
+                mouseLocation = this.Parent.PointToClient(MousePosition);
+                Console.WriteLine(mouseLocation);
+
+                mouseLocation.X = mouseLocation.X - (this.Width / 2);
+                mouseLocation.Y = mouseLocation.Y - (this.Height / 2);
+                
+                offset.X = mouseLocation.X - this.Location.X;
+                offset.Y = mouseLocation.Y - this.Location.Y;
+                
+                foreach (Shape shape in group.GetShapesInGroup())
+                {
+                    Point newloc = shape.Location;
+                    newloc.X += offset.X;
+                    newloc.Y += offset.Y;
+
+                    shape.Location = newloc;
+                }
+                selectedItem = null;
             }
         }
 
@@ -89,27 +122,49 @@ namespace DesignPatterns
             return "Hallo";
         }
 
-        public void MakeGroup(Shape group, List<Shape> groupShapes)
+        public bool IsPartOfGroup()
         {
-            for (int i = 1; i < groupShapes.Count(); i++)
+            return isPartOfGroup;
+        }
+
+        public Group BelongsToGroup()
+        {
+            return group;
+        }
+
+        public void MakeGroup(Shape groupie, List<Shape> groupShapes)
+        {
+            Group group1 = new Group();
+            for (int i = 0; i < groupShapes.Count(); i++)
             {
                 if(groupShapes[i].shapes.Count() == 0)
                 {
-                    group.Add(groupShapes[i]);
+                    groupShapes[i].isPartOfGroup = true;
+                    groupShapes[i].group = group1;
+                    group1.Add(groupShapes[i]);
                 }
             }
         }
 
         public void ListGroup()
         {
-            foreach (Shape shape in this.GetShapesInGroup())
+            if(this.isPartOfGroup)
             {
-                Console.WriteLine("Hoi");
-                foreach (Shape item in shape.GetShapesInGroup())
-                {
-                    Console.WriteLine("\tHallo");
-                }
+                Console.WriteLine("True");
+                Console.WriteLine(this.group.count());
             }
+            else
+            {
+                Console.WriteLine("false");
+            }
+            //foreach (Shape shape in this.GetShapesInGroup())
+            //{
+            //    Console.WriteLine("Hoi");
+            //    foreach (Shape item in shape.GetShapesInGroup())
+            //    {
+            //        Console.WriteLine("\tHallo");
+            //    }
+            //}
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns
 {
-    class Group
+    public class Group
     {
         private List<Shape> shapes;
         public static int id = 0;
@@ -35,6 +35,11 @@ namespace DesignPatterns
         public int toString()
         {
             return id;
+        }
+
+        public int count()
+        {
+            return this.shapes.Count();
         }
     }
 }

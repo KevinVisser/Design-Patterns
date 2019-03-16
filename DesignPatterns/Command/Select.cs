@@ -19,7 +19,7 @@ namespace DesignPatterns.Command
 
         public void Execute(EventArgs e)
         {
-            _r.Select(_r);
+            _r.Select();
         }
     }
 }
