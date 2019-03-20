@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Visitor;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,12 +12,15 @@ namespace DesignPatterns
     public class Shape : Panel
     {
         protected Size _userSize;
+        protected Point location;
         protected Group group;
         protected string type;
         protected Shape selectedItem = null;
         protected Point mouseLocation;
         private List<Shape> shapes = new List<Shape>();
         protected bool isPartOfGroup = false;
+
+        public virtual void Accept() { }
 
         public virtual void Draw(PaintEventArgs e, Size s){}
         public virtual string GetTypeBack()
@@ -157,6 +161,7 @@ namespace DesignPatterns
             {
                 Console.WriteLine("false");
             }
+            Console.WriteLine(this.type);
             //foreach (Shape shape in this.GetShapesInGroup())
             //{
             //    Console.WriteLine("Hoi");

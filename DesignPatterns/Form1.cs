@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DesignPatterns.Command;
+using DesignPatterns.Visitor;
 
 namespace DesignPatterns
 {
@@ -17,6 +18,8 @@ namespace DesignPatterns
 
         //Command Pattern
         CommandManager commandManager = new CommandManager();
+
+        ShapeVisitor shapeVisitor = new ShapeVisitor();
 
         Size userSize = new Size(50, 50);
 
@@ -33,8 +36,7 @@ namespace DesignPatterns
         bool resize = false;
         bool move = false;
         bool group = false;
-        bool groupMove = false;
-        bool groupResize = false;
+        bool accept = false;
         
         public Form1()
         {
@@ -57,8 +59,7 @@ namespace DesignPatterns
             resize = false;
             move = false;
             group = false;
-            groupMove = false;
-            groupResize = false;
+            accept = false;
         }
 
         private void RectangleButton_Click(object sender, EventArgs e)
@@ -69,8 +70,7 @@ namespace DesignPatterns
             resize = false;
             move = false;
             group = false;
-            groupMove = false;
-            groupResize = false;
+            accept = false;
         }
 
         private void SelectButton_Click(object sender, EventArgs e)
@@ -81,8 +81,7 @@ namespace DesignPatterns
             resize = false;
             move = false;
             group = false;
-            groupMove = false;
-            groupResize = false;
+            accept = false;
         }
         private void Resize_Click(object sender, EventArgs e)
         {
@@ -92,8 +91,7 @@ namespace DesignPatterns
             resize = true;
             move = false;
             group = false;
-            groupMove = false;
-            groupResize = false;
+            accept = false;
         }
 
         private void MoveButton_Click(object sender, EventArgs e)
@@ -104,8 +102,7 @@ namespace DesignPatterns
             move = true;
             resize = false;
             group = false;
-            groupMove = false;
-            groupResize = false;
+            accept = false;
         }
 
         private void GroupButton_Click(object sender, EventArgs e)
@@ -116,8 +113,7 @@ namespace DesignPatterns
             move = false;
             resize = false;
             group = true;
-            groupMove = false;
-            groupResize = false;
+            accept = false;
         }
 
         private void GroupMoveButton_Click(object sender, EventArgs e)
@@ -128,8 +124,7 @@ namespace DesignPatterns
             move = false;
             resize = false;
             group = false;
-            groupMove = true;
-            groupResize = false;
+            accept = false;
         }
 
         private void GroupResizeButton_Click(object sender, EventArgs e)
@@ -140,8 +135,7 @@ namespace DesignPatterns
             move = false;
             resize = false;
             group = false;
-            groupMove = false;
-            groupResize = true;
+            accept = false;
         }
         #endregion
 
@@ -156,18 +150,20 @@ namespace DesignPatterns
             //als de rectangle button is geklikt.
             if(rectangle)
             {
-                Shape b = new Shape
+                Shape b = new Rect(userSize)
                 {
                     Size = userSize,
                     Location = putShapeOnPanel
                 };
+                b.Size = userSize;
+                b.Location = putShapeOnPanel;
                 b.Paint += B_Paint;
                 b.Click += B_Click;
                 p.Controls.Add(b);
             }
             if (ellipse)
             {
-                Shape box = new Shape
+                Shape box = new Ellipse(userSize)
                 {
                     Size = userSize,
                     Location = putShapeOnPanel
@@ -185,14 +181,23 @@ namespace DesignPatterns
             if (select)
             {
                 //commandManager.ExecuteCommand(new Select((Shape)sender), e);
-                Shape shape = (Shape)sender;
-                shape.ListGroup();
+                if(sender is Ellipse)
+                {
+                    Shape s = (Ellipse)sender;
+                    selectedItem = s;
+                }
+                else if (sender is Rect)
+                {
+                    Shape s = (Rect)sender;
+                    selectedItem = s;
+                }
+                //shape.ListGroup();
             }
 
             if (move)
             {
                 selectedItem = (Shape)sender;
-                commandManager.ExecuteCommand(new Move((Shape)sender), e);
+                commandManager.ExecuteCommand(new MoveCommand((Shape)sender), e);
             }
 
             if (resize)
@@ -217,14 +222,14 @@ namespace DesignPatterns
         private void Box_Paint(object sender, PaintEventArgs e)
         {
             Shape ellipse = (Shape)sender;
-            commandManager.ExecuteCommand(new DrawEllipse(new Ellipse(ellipse.Size)), e);
+            commandManager.ExecuteCommand(new DrawEllipseCommand(new Ellipse(ellipse.Size)), e);
             this.Invalidate();
         }
 
         private void B_Paint(object sender, PaintEventArgs e)
         {
             Shape rectangle = (Shape)sender;
-            commandManager.ExecuteCommand(new DrawRectangle(new Rect(rectangle.Size)), e);
+            commandManager.ExecuteCommand(new DrawRectangleCommand(new Rect(rectangle.Size)), e);
             this.Invalidate();
         }
 
@@ -232,7 +237,7 @@ namespace DesignPatterns
         {
             if(move && selectedItem != null)
             {
-                commandManager.ExecuteCommand(new Move(selectedItem), e);
+                commandManager.ExecuteCommand(new MoveCommand(selectedItem), e);
                 selectedItem = null;
             }
             Panel panel = (Panel)sender;
@@ -259,10 +264,29 @@ namespace DesignPatterns
             move = false;
             resize = false;
             group = false;
-            groupMove = false;
-            groupResize = false;
             commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
             shapeList.Clear();
+        }
+
+        private void AcceptButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = false;
+            accept = true;
+            if(selectedItem is Rect && accept)
+            {
+                Rect r = (Rect)selectedItem;
+                r.Accept(shapeVisitor);
+            }
+            else if (selectedItem is Ellipse && accept)
+            {
+                Ellipse r = (Ellipse)selectedItem;
+                r.Accept(shapeVisitor);
+            }
         }
     }
 }

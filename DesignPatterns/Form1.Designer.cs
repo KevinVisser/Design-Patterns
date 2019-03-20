@@ -41,6 +41,7 @@
             this.RedoButton = new System.Windows.Forms.Button();
             this.GroupButton = new System.Windows.Forms.Button();
             this.DoneButton = new System.Windows.Forms.Button();
+            this.AcceptButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RectangleButton
@@ -144,11 +145,22 @@
             this.DoneButton.UseVisualStyleBackColor = true;
             this.DoneButton.Click += new System.EventHandler(this.DoneButton_Click);
             // 
+            // AcceptButton
+            // 
+            this.AcceptButton.Location = new System.Drawing.Point(545, 234);
+            this.AcceptButton.Name = "AcceptButton";
+            this.AcceptButton.Size = new System.Drawing.Size(75, 23);
+            this.AcceptButton.TabIndex = 10;
+            this.AcceptButton.Text = "Accept";
+            this.AcceptButton.UseVisualStyleBackColor = true;
+            this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 404);
+            this.Controls.Add(this.AcceptButton);
             this.Controls.Add(this.DoneButton);
             this.Controls.Add(this.GroupButton);
             this.Controls.Add(this.RedoButton);
@@ -180,6 +192,7 @@
         private System.Windows.Forms.Button RedoButton;
         private System.Windows.Forms.Button GroupButton;
         private System.Windows.Forms.Button DoneButton;
+        private System.Windows.Forms.Button AcceptButton;
     }
 }
 

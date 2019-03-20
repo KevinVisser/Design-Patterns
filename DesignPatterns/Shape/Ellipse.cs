@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Visitor;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,9 +9,8 @@ using System.Windows.Forms;
 
 namespace DesignPatterns
 {
-    class Ellipse : Shape
+    public class Ellipse : Shape
     {
-
         public Ellipse(Size userSize)
         {
             this.type = "Ellipse";
@@ -18,6 +18,10 @@ namespace DesignPatterns
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.UserPaint, true);
+        }
+
+        public Ellipse()
+        {
         }
 
         public override void Draw(PaintEventArgs e, Size size)
@@ -28,6 +32,11 @@ namespace DesignPatterns
         public override string GetTypeBack()
         {
             return type;
+        }
+
+        public void Accept(IShapeVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

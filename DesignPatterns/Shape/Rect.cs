@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Visitor;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace DesignPatterns
         public override string GetTypeBack()
         {
             return type;
+        }
+
+        public void Accept(IShapeVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }
