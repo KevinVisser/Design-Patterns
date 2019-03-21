@@ -14,12 +14,17 @@ namespace DesignPatterns
 {
     public partial class Form1 : Form
     {
-        Pen pen = new Pen(Color.Black, 5);
+        //Pen pen = new Pen(Color.Black, 5);
 
         //Command Pattern
         CommandManager commandManager = new CommandManager();
 
-        ShapeVisitor shapeVisitor = new ShapeVisitor();
+        //Visitors
+        IShapeVisitor shapeVisitor = new ShapeVisitor();
+        IShapeVisitor IncreaseSizeShapeVisitor = new IncreaseSizeShapeVisitor();
+        IShapeVisitor DecreaseSizeShapeVisitor = new DecreaseSizeShapeVisitor();
+        IShapeVisitor MoveShapeVisitor = new MoveShapeVisitor();
+        IShapeVisitor SaveFileVisitor = new SaveFileVisitor();
 
         Size userSize = new Size(50, 50);
 
@@ -30,6 +35,8 @@ namespace DesignPatterns
         List<Shape> shapeList = new List<Shape>();
 
         //Booleans voor de knoppen(kunnen we later enum voor maken misschien)
+        enum ButtonSelected {RECTANGLE, ELLIPSE, SELECT, RESIZE, MOVE, GROUP, ACCEPT};
+        ButtonSelected buttonSelected = ButtonSelected.MOVE;
         bool rectangle = false;
         bool ellipse = false;
         bool select = false;
@@ -51,6 +58,36 @@ namespace DesignPatterns
         }
 
         #region Buttons
+        private void IOButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(sender);
+            Button btn = (Button)sender;
+            switch (btn.Text)
+            {
+                case "Rectangle":
+                    buttonSelected = ButtonSelected.RECTANGLE;
+                    break;
+                case "Ellipse":
+                    buttonSelected = ButtonSelected.ELLIPSE;
+                    break;
+                case "Select":
+                    buttonSelected = ButtonSelected.SELECT;
+                    break;
+                case "Resize":
+                    buttonSelected = ButtonSelected.RESIZE;
+                    break;
+                case "Move":
+                    buttonSelected = ButtonSelected.MOVE;
+                    break;
+                case "Group":
+                    buttonSelected = ButtonSelected.GROUP;
+                    break;
+                case "Accept":
+                    buttonSelected = ButtonSelected.ACCEPT;
+                    break;
+                
+            }
+        }
         private void EllipseButton_Click(object sender, EventArgs e)
         {
             ellipse = true;
@@ -137,6 +174,35 @@ namespace DesignPatterns
             group = false;
             accept = false;
         }
+
+        private void UndoButton_Click(object sender, EventArgs e)
+        {
+            commandManager.Undo(e);
+            this.Refresh();
+        }
+
+        private void RedoButton_Click(object sender, EventArgs e)
+        {
+            commandManager.Redo(e);
+            this.Refresh();
+        }
+
+        private void DoneButton_Click(object sender, EventArgs e)
+        {
+            select = false;
+            rectangle = false;
+            ellipse = false;
+            move = false;
+            resize = false;
+            group = false;
+            commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
+            shapeList.Clear();
+        }
+
+        private void AcceptButton_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         private void Panel1_Paint(object sender, PaintEventArgs e)
@@ -148,75 +214,140 @@ namespace DesignPatterns
             putShapeOnPanel.Y -= userSize.Height / 2;
 
             //als de rectangle button is geklikt.
-            if(rectangle)
+            switch (buttonSelected)
             {
-                Shape b = new Rect(userSize)
-                {
-                    Size = userSize,
-                    Location = putShapeOnPanel
-                };
-                b.Size = userSize;
-                b.Location = putShapeOnPanel;
-                b.Paint += B_Paint;
-                b.Click += B_Click;
-                p.Controls.Add(b);
+                case ButtonSelected.RECTANGLE:
+
+                    Shape b = new Rect(userSize)
+                    {
+                        Size = userSize,
+                        Location = putShapeOnPanel
+                    };
+                    b.Size = userSize;
+                    b.Location = putShapeOnPanel;
+                    b.Paint += B_Paint;
+                    b.Click += B_Click;
+                    p.Controls.Add(b);
+                    break;
+                case ButtonSelected.ELLIPSE:
+
+                    Shape box = new Ellipse(userSize)
+                    {
+                        Size = userSize,
+                        Location = putShapeOnPanel
+                    };
+                    box.Paint += Box_Paint;
+                    box.Click += B_Click;
+                    p.Controls.Add(box);
+                    break;
             }
-            if (ellipse)
-            {
-                Shape box = new Ellipse(userSize)
-                {
-                    Size = userSize,
-                    Location = putShapeOnPanel
-                };
-                box.Paint += Box_Paint;
-                box.Click += B_Click;
-                p.Controls.Add(box);
-            }            
+            //if(rectangle)
+            //{
+            //    Shape b = new Rect(userSize)
+            //    {
+            //        Size = userSize,
+            //        Location = putShapeOnPanel
+            //    };
+            //    b.Size = userSize;
+            //    b.Location = putShapeOnPanel;
+            //    b.Paint += B_Paint;
+            //    b.Click += B_Click;
+            //    p.Controls.Add(b);
+            //}
+            //if (ellipse)
+            //{
+            //    Shape box = new Ellipse(userSize)
+            //    {
+            //        Size = userSize,
+            //        Location = putShapeOnPanel
+            //    };
+            //    box.Paint += Box_Paint;
+            //    box.Click += B_Click;
+            //    p.Controls.Add(box);
+            //}            
         }   
         
         private void B_Click(object sender, EventArgs e)
         {
             MouseEventArgs mouse = (MouseEventArgs)e;
 
-            if (select)
+            switch (buttonSelected)
             {
-                //commandManager.ExecuteCommand(new Select((Shape)sender), e);
-                if(sender is Ellipse)
-                {
-                    Shape s = (Ellipse)sender;
-                    selectedItem = s;
-                }
-                else if (sender is Rect)
-                {
-                    Shape s = (Rect)sender;
-                    selectedItem = s;
-                }
-                //shape.ListGroup();
+                case ButtonSelected.SELECT:
+
+                    if (sender is Ellipse)
+                    {
+                        Shape s = (Ellipse)sender;
+                        selectedItem = s;
+                    }
+                    else if (sender is Rect)
+                    {
+                        Shape s = (Rect)sender;
+                        selectedItem = s;
+                    }
+                    break;
+                case ButtonSelected.MOVE:
+
+                    selectedItem = (Shape)sender;
+                    commandManager.ExecuteCommand(new MoveCommand((Shape)sender), e);
+                    break;
+                case ButtonSelected.RESIZE:
+
+                    if (mouse.Button == MouseButtons.Left)
+                    {
+                        commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
+                    }
+                    else if (mouse.Button == MouseButtons.Right)
+                    {
+                        commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
+                    }
+                    this.Refresh();
+                    break;
+                case ButtonSelected.GROUP:
+
+                    shapeList.Add((Shape)sender);
+                    break;
             }
 
-            if (move)
-            {
-                selectedItem = (Shape)sender;
-                commandManager.ExecuteCommand(new MoveCommand((Shape)sender), e);
-            }
+            //if (select)
+            //{
+            //    //commandManager.ExecuteCommand(new Select((Shape)sender), e);
+            //    if(sender is Ellipse)
+            //    {
+            //        Shape s = (Ellipse)sender;
+            //        selectedItem = s;
+            //    }
+            //    else if (sender is Rect)
+            //    {
+            //        Shape s = (Rect)sender;
+            //        selectedItem = s;
+            //    }
+            //    //shape.ListGroup();
+            //}
 
-            if (resize)
-            {
-                if(mouse.Button == MouseButtons.Left)
-                {
-                    commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
-                }
-                else if(mouse.Button == MouseButtons.Right)
-                {
-                    commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
-                }
-                this.Refresh();
-            }
+            //if (move)
+            //{
+            //    selectedItem = (Shape)sender;
+            //    commandManager.ExecuteCommand(new MoveCommand((Shape)sender), e);
+            //}
+
+            //if (resize)
+            //{
+            //    if(mouse.Button == MouseButtons.Left)
+            //    {
+            //        commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
+            //    }
+            //    else if(mouse.Button == MouseButtons.Right)
+            //    {
+            //        commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
+            //    }
+            //    this.Refresh();
+            //}
             
-            if (group)
-            {
-                shapeList.Add((Shape)sender);
-            }
+            //if (group)
+            //{
+            //    shapeList.Add((Shape)sender);
+            //}
         }
 
         private void Box_Paint(object sender, PaintEventArgs e)
@@ -235,58 +366,13 @@ namespace DesignPatterns
 
         private void Panel1_Click(object sender, EventArgs e)
         {
-            if(move && selectedItem != null)
+            if(buttonSelected == ButtonSelected.MOVE && selectedItem != null)
             {
                 commandManager.ExecuteCommand(new MoveCommand(selectedItem), e);
                 selectedItem = null;
             }
             Panel panel = (Panel)sender;
             panel.Invalidate();
-        }
-
-        private void UndoButton_Click(object sender, EventArgs e)
-        {
-            commandManager.Undo(e);
-            this.Refresh();
-        }
-
-        private void RedoButton_Click(object sender, EventArgs e)
-        {
-            commandManager.Redo(e);
-            this.Refresh();
         }        
-
-        private void DoneButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = false;
-            commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
-            shapeList.Clear();
-        }
-
-        private void AcceptButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = false;
-            accept = true;
-            if(selectedItem is Rect && accept)
-            {
-                Rect r = (Rect)selectedItem;
-                r.Accept(shapeVisitor);
-            }
-            else if (selectedItem is Ellipse && accept)
-            {
-                Ellipse r = (Ellipse)selectedItem;
-                r.Accept(shapeVisitor);
-            }
-        }
     }
 }

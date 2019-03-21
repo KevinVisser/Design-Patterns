@@ -52,7 +52,7 @@
             this.RectangleButton.TabIndex = 1;
             this.RectangleButton.Text = "Rectangle";
             this.RectangleButton.UseVisualStyleBackColor = true;
-            this.RectangleButton.Click += new System.EventHandler(this.RectangleButton_Click);
+            this.RectangleButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // EllipseButton
             // 
@@ -62,7 +62,7 @@
             this.EllipseButton.TabIndex = 2;
             this.EllipseButton.Text = "Ellipse";
             this.EllipseButton.UseVisualStyleBackColor = true;
-            this.EllipseButton.Click += new System.EventHandler(this.EllipseButton_Click);
+            this.EllipseButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // SelectButton
             // 
@@ -72,7 +72,7 @@
             this.SelectButton.TabIndex = 3;
             this.SelectButton.Text = "Select";
             this.SelectButton.UseVisualStyleBackColor = true;
-            this.SelectButton.Click += new System.EventHandler(this.SelectButton_Click);
+            this.SelectButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // panel1
             // 
@@ -93,7 +93,7 @@
             this.ResizeButton.TabIndex = 4;
             this.ResizeButton.Text = "Resize";
             this.ResizeButton.UseVisualStyleBackColor = true;
-            this.ResizeButton.Click += new System.EventHandler(this.Resize_Click);
+            this.ResizeButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // MoveButton
             // 
@@ -103,7 +103,7 @@
             this.MoveButton.TabIndex = 5;
             this.MoveButton.Text = "Move";
             this.MoveButton.UseVisualStyleBackColor = true;
-            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
+            this.MoveButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // UndoButton
             // 
@@ -133,7 +133,7 @@
             this.GroupButton.TabIndex = 8;
             this.GroupButton.Text = "Group";
             this.GroupButton.UseVisualStyleBackColor = true;
-            this.GroupButton.Click += new System.EventHandler(this.GroupButton_Click);
+            this.GroupButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // DoneButton
             // 
@@ -147,13 +147,13 @@
             // 
             // AcceptButton
             // 
-            this.AcceptButton.Location = new System.Drawing.Point(545, 234);
+            this.AcceptButton.Location = new System.Drawing.Point(524, 235);
             this.AcceptButton.Name = "AcceptButton";
-            this.AcceptButton.Size = new System.Drawing.Size(75, 23);
+            this.AcceptButton.Size = new System.Drawing.Size(85, 23);
             this.AcceptButton.TabIndex = 10;
             this.AcceptButton.Text = "Accept";
             this.AcceptButton.UseVisualStyleBackColor = true;
-            this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
+            this.AcceptButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // Form1
             // 
