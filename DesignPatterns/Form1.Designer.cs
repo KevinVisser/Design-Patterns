@@ -113,7 +113,7 @@
             this.UndoButton.TabIndex = 6;
             this.UndoButton.Text = "Undo";
             this.UndoButton.UseVisualStyleBackColor = true;
-            this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            this.UndoButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // RedoButton
             // 
@@ -123,7 +123,7 @@
             this.RedoButton.TabIndex = 7;
             this.RedoButton.Text = "Redo";
             this.RedoButton.UseVisualStyleBackColor = true;
-            this.RedoButton.Click += new System.EventHandler(this.RedoButton_Click);
+            this.RedoButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // GroupButton
             // 
@@ -137,13 +137,13 @@
             // 
             // DoneButton
             // 
-            this.DoneButton.Location = new System.Drawing.Point(603, 369);
+            this.DoneButton.Location = new System.Drawing.Point(605, 369);
             this.DoneButton.Name = "DoneButton";
             this.DoneButton.Size = new System.Drawing.Size(75, 23);
             this.DoneButton.TabIndex = 9;
             this.DoneButton.Text = "Done";
             this.DoneButton.UseVisualStyleBackColor = true;
-            this.DoneButton.Click += new System.EventHandler(this.DoneButton_Click);
+            this.DoneButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // AcceptButton
             // 

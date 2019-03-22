@@ -78,7 +78,6 @@
     </Compile>
     <Compile Include="Visitor\DecreaseSizeShapeVisitor.cs" />
     <Compile Include="Visitor\IncreaseSizeShapeVisitor.cs" />
-    <Compile Include="Visitor\IShapeVisitor.cs" />
     <Compile Include="Visitor\MoveShapeVisitor.cs" />
     <Compile Include="Visitor\SaveFileVisitor.cs" />
     <Compile Include="Visitor\ShapeVisitor.cs" />

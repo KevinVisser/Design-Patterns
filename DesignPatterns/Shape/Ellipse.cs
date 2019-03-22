@@ -34,9 +34,9 @@ namespace DesignPatterns
             return type;
         }
 
-        public void Accept(IShapeVisitor visitor)
+        public override void Accept(ShapeVisitor visitor, EventArgs e)
         {
-            visitor.Visit(this);
+            visitor.Visit(this, e);
         }
     }
 }

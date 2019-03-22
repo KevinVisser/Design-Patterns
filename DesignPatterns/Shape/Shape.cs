@@ -20,7 +20,7 @@ namespace DesignPatterns
         private List<Shape> shapes = new List<Shape>();
         protected bool isPartOfGroup = false;
 
-        public virtual void Accept() { }
+        public virtual void Accept(ShapeVisitor visitor, EventArgs e) { }
 
         public virtual void Draw(PaintEventArgs e, Size s){}
         public virtual string GetTypeBack()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,10 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Visitor
 {
-    public class ShapeVisitor : IShapeVisitor
+    public abstract class ShapeVisitor
     {
-        public void Visit(Rect r)
-        {
-            Console.WriteLine("Hallo");
-        }
+        protected CommandManager commandManager = CommandManager.getInstance();
 
-        public void Visit(Ellipse e)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void Visit(Shape s, EventArgs e) { }
     }
 }

@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Visitor
 {
-    class MoveShapeVisitor : IShapeVisitor
+    class MoveShapeVisitor : ShapeVisitor
     {
-        public void Visit(Rect r)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Visit(Ellipse e)
+        public override void Visit(Shape s, EventArgs e)
         {
             throw new NotImplementedException();
         }

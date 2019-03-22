@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Visitor
 {
-    class IncreaseSizeShapeVisitor : IShapeVisitor
+    class IncreaseSizeShapeVisitor : ShapeVisitor
     {
-        public void Visit(Rect r)
+        public override void Visit(Shape s, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Visit(Ellipse e)
-        {
-            throw new NotImplementedException();
+            commandManager.ExecuteCommand(new IncreaseSizeCommand(s), e);
         }
     }
 }

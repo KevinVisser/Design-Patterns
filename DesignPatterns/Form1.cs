@@ -17,14 +17,14 @@ namespace DesignPatterns
         //Pen pen = new Pen(Color.Black, 5);
 
         //Command Pattern
-        CommandManager commandManager = new CommandManager();
+        CommandManager commandManager = CommandManager.getInstance();
 
         //Visitors
-        IShapeVisitor shapeVisitor = new ShapeVisitor();
-        IShapeVisitor IncreaseSizeShapeVisitor = new IncreaseSizeShapeVisitor();
-        IShapeVisitor DecreaseSizeShapeVisitor = new DecreaseSizeShapeVisitor();
-        IShapeVisitor MoveShapeVisitor = new MoveShapeVisitor();
-        IShapeVisitor SaveFileVisitor = new SaveFileVisitor();
+        //IShapeVisitor shapeVisitor = new ShapeVisitor();
+        ShapeVisitor increaseSizeShapeVisitor = new IncreaseSizeShapeVisitor();
+        ShapeVisitor decreaseSizeShapeVisitor = new DecreaseSizeShapeVisitor();
+        ShapeVisitor moveShapeVisitor = new MoveShapeVisitor();
+        ShapeVisitor saveFileVisitor = new SaveFileVisitor();
 
         Size userSize = new Size(50, 50);
 
@@ -32,6 +32,7 @@ namespace DesignPatterns
         Point location;
         Point putShapeOnPanel;
         Shape selectedItem;
+        Shape shape;
         List<Shape> shapeList = new List<Shape>();
 
         //Booleans voor de knoppen(kunnen we later enum voor maken misschien)
@@ -60,7 +61,6 @@ namespace DesignPatterns
         #region Buttons
         private void IOButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(sender);
             Button btn = (Button)sender;
             switch (btn.Text)
             {
@@ -85,94 +85,23 @@ namespace DesignPatterns
                 case "Accept":
                     buttonSelected = ButtonSelected.ACCEPT;
                     break;
-                
+                case "Undo":
+                    commandManager.Undo(e);
+                    this.Refresh();
+                    //buttonSelected = ButtonSelected.ACCEPT;
+                    break;
+                case "Redo":
+                    commandManager.Redo(e);
+                    this.Refresh();
+                    //buttonSelected = ButtonSelected.ACCEPT;
+                    break;
+                case "Done":
+                    commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
+                    shapeList.Clear();
+                    //buttonSelected = ButtonSelected.ACCEPT;
+                    break;
+
             }
-        }
-        private void EllipseButton_Click(object sender, EventArgs e)
-        {
-            ellipse = true;
-            rectangle = false;
-            select = false;
-            resize = false;
-            move = false;
-            group = false;
-            accept = false;
-        }
-
-        private void RectangleButton_Click(object sender, EventArgs e)
-        {
-            rectangle = true;
-            select = false;
-            ellipse = false;
-            resize = false;
-            move = false;
-            group = false;
-            accept = false;
-        }
-
-        private void SelectButton_Click(object sender, EventArgs e)
-        {
-            select = true;
-            rectangle = false;
-            ellipse = false;
-            resize = false;
-            move = false;
-            group = false;
-            accept = false;
-        }
-        private void Resize_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            resize = true;
-            move = false;
-            group = false;
-            accept = false;
-        }
-
-        private void MoveButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = true;
-            resize = false;
-            group = false;
-            accept = false;
-        }
-
-        private void GroupButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = true;
-            accept = false;
-        }
-
-        private void GroupMoveButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = false;
-            accept = false;
-        }
-
-        private void GroupResizeButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = false;
-            accept = false;
         }
 
         private void UndoButton_Click(object sender, EventArgs e)
@@ -240,51 +169,36 @@ namespace DesignPatterns
                     box.Click += B_Click;
                     p.Controls.Add(box);
                     break;
-            }
-            //if(rectangle)
-            //{
-            //    Shape b = new Rect(userSize)
-            //    {
-            //        Size = userSize,
-            //        Location = putShapeOnPanel
-            //    };
-            //    b.Size = userSize;
-            //    b.Location = putShapeOnPanel;
-            //    b.Paint += B_Paint;
-            //    b.Click += B_Click;
-            //    p.Controls.Add(b);
-            //}
-            //if (ellipse)
-            //{
-            //    Shape box = new Ellipse(userSize)
-            //    {
-            //        Size = userSize,
-            //        Location = putShapeOnPanel
-            //    };
-            //    box.Paint += Box_Paint;
-            //    box.Click += B_Click;
-            //    p.Controls.Add(box);
-            //}            
+            }          
         }   
         
         private void B_Click(object sender, EventArgs e)
         {
             MouseEventArgs mouse = (MouseEventArgs)e;
 
+            if(sender is Ellipse)
+            {
+                shape = (Ellipse)sender;
+            }
+            else if(sender is Rect)
+            {
+                shape = (Rect)sender;
+            }
+
             switch (buttonSelected)
             {
                 case ButtonSelected.SELECT:
-
-                    if (sender is Ellipse)
-                    {
-                        Shape s = (Ellipse)sender;
-                        selectedItem = s;
-                    }
-                    else if (sender is Rect)
-                    {
-                        Shape s = (Rect)sender;
-                        selectedItem = s;
-                    }
+                    selectedItem = shape;
+                    //if (sender is Ellipse)
+                    //{
+                    //    Shape s = (Ellipse)sender;
+                    //    selectedItem = s;
+                    //}
+                    //else if (sender is Rect)
+                    //{
+                    //    Shape s = (Rect)sender;
+                    //    selectedItem = s;
+                    //}
                     break;
                 case ButtonSelected.MOVE:
 
@@ -295,11 +209,15 @@ namespace DesignPatterns
 
                     if (mouse.Button == MouseButtons.Left)
                     {
-                        commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
+                        shape.Accept(increaseSizeShapeVisitor, e);
+                        //increaseSizeShapeVisitor.Visit(shape, e);
+                        //commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
                     }
                     else if (mouse.Button == MouseButtons.Right)
                     {
-                        commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
+                        shape.Accept(decreaseSizeShapeVisitor, e);
+                        //decreaseSizeShapeVisitor.Visit(shape, e);
+                        //commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
                     }
                     this.Refresh();
                     break;
@@ -308,59 +226,19 @@ namespace DesignPatterns
                     shapeList.Add((Shape)sender);
                     break;
             }
-
-            //if (select)
-            //{
-            //    //commandManager.ExecuteCommand(new Select((Shape)sender), e);
-            //    if(sender is Ellipse)
-            //    {
-            //        Shape s = (Ellipse)sender;
-            //        selectedItem = s;
-            //    }
-            //    else if (sender is Rect)
-            //    {
-            //        Shape s = (Rect)sender;
-            //        selectedItem = s;
-            //    }
-            //    //shape.ListGroup();
-            //}
-
-            //if (move)
-            //{
-            //    selectedItem = (Shape)sender;
-            //    commandManager.ExecuteCommand(new MoveCommand((Shape)sender), e);
-            //}
-
-            //if (resize)
-            //{
-            //    if(mouse.Button == MouseButtons.Left)
-            //    {
-            //        commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
-            //    }
-            //    else if(mouse.Button == MouseButtons.Right)
-            //    {
-            //        commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
-            //    }
-            //    this.Refresh();
-            //}
-            
-            //if (group)
-            //{
-            //    shapeList.Add((Shape)sender);
-            //}
         }
 
         private void Box_Paint(object sender, PaintEventArgs e)
         {
-            Shape ellipse = (Shape)sender;
-            commandManager.ExecuteCommand(new DrawEllipseCommand(new Ellipse(ellipse.Size)), e);
+            Shape ellipse = (Ellipse)sender;
+            commandManager.ExecuteCommand(new DrawEllipseCommand(ellipse), e);
             this.Invalidate();
         }
 
         private void B_Paint(object sender, PaintEventArgs e)
         {
-            Shape rectangle = (Shape)sender;
-            commandManager.ExecuteCommand(new DrawRectangleCommand(new Rect(rectangle.Size)), e);
+            Shape rectangle = (Rect)sender;
+            commandManager.ExecuteCommand(new DrawRectangleCommand(rectangle), e);
             this.Invalidate();
         }
 
