@@ -19,7 +19,7 @@ namespace DesignPatterns.Command
         public void Execute(EventArgs e)
         {
             PaintEventArgs paint = e as PaintEventArgs;
-            _r.Draw(paint, _r.GetUserSize());
+            _r.Draw(paint, _r.Size);
         }
     }
 }

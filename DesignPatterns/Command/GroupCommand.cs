@@ -8,18 +8,18 @@ namespace DesignPatterns.Command
 {
     class GroupCommand : ICommand
     {
-        private Shape group;
+        private Shape shape;
         private List<Shape> groupShapes = new List<Shape>();
 
-        public GroupCommand(Shape group, List<Shape> groupShapes)
+        public GroupCommand(List<Shape> groupShapes)
         {
-            this.group = group;
+            shape = new Shape();
             this.groupShapes = groupShapes;
         }
 
         public void Execute(EventArgs e)
         {
-            group.MakeGroup(group, groupShapes);
+            shape.MakeGroup(groupShapes);
         }
     }
 }

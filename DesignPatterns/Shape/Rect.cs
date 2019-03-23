@@ -35,5 +35,10 @@ namespace DesignPatterns
         {
             visitor.Visit(this, e);
         }
+
+        public override List<Shape> ListOfShapes()
+        {
+            return shapes;
+        }
     }
 }

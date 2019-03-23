@@ -17,7 +17,8 @@ namespace DesignPatterns
         protected string type;
         protected Shape selectedItem = null;
         protected Point mouseLocation;
-        private List<Shape> shapes = new List<Shape>();
+        protected List<Shape> shapes = new List<Shape>();
+        protected List<Shape> shapeList = new List<Shape>();
         protected bool isPartOfGroup = false;
 
         public virtual void Accept(ShapeVisitor visitor, EventArgs e) { }
@@ -60,7 +61,7 @@ namespace DesignPatterns
             {
                 selectedItem = this;
             }
-            else
+            else if(selectedItem.group == null)
             {
                 mouseLocation = this.Parent.PointToClient(MousePosition);
                 mouseLocation.X -= (selectedItem.Width / 2);
@@ -68,16 +69,10 @@ namespace DesignPatterns
                 this.Location = mouseLocation;
                 selectedItem = null;
             }
-        }
+            else if(selectedItem.group != null)
+            {
+                List<Shape> list = selectedItem.ListGroup(selectedItem);
 
-        public virtual void GroupMove()
-        {
-            if(selectedItem == null)
-            {
-                selectedItem = this;
-            }
-            else
-            {
                 Group group = this.BelongsToGroup();
                 Point offset = new Point();
                 mouseLocation = this.Parent.PointToClient(MousePosition);
@@ -85,11 +80,11 @@ namespace DesignPatterns
 
                 mouseLocation.X = mouseLocation.X - (this.Width / 2);
                 mouseLocation.Y = mouseLocation.Y - (this.Height / 2);
-                
+
                 offset.X = mouseLocation.X - this.Location.X;
                 offset.Y = mouseLocation.Y - this.Location.Y;
-                
-                foreach (Shape shape in group.GetShapesInGroup())
+
+                foreach (Shape shape in list)
                 {
                     Point newloc = shape.Location;
                     newloc.X += offset.X;
@@ -97,33 +92,9 @@ namespace DesignPatterns
 
                     shape.Location = newloc;
                 }
+                list.Clear();
                 selectedItem = null;
             }
-        }
-
-        public Size GetUserSize()
-        {
-            return _userSize;
-        }
-
-        public void Add(Shape s)
-        {
-            this.shapes.Add(s);
-        }
-
-        public void Remove(Shape s)
-        {
-            this.shapes.Remove(s);
-        }
-
-        public List<Shape> GetShapesInGroup()
-        {
-            return this.shapes;
-        }
-
-        public string toString()
-        {
-            return "Hallo";
         }
 
         public bool IsPartOfGroup()
@@ -131,45 +102,60 @@ namespace DesignPatterns
             return isPartOfGroup;
         }
 
+        public virtual List<Shape> ListOfShapes()
+        {
+            return shapes;
+        }
+
         public Group BelongsToGroup()
         {
             return group;
         }
 
-        public void MakeGroup(Shape groupie, List<Shape> groupShapes)
+        public void MakeGroup(List<Shape> groupShapes)
         {
             Group group1 = new Group();
-            for (int i = 0; i < groupShapes.Count(); i++)
+            if(groupShapes[0].group != null)
             {
-                if(groupShapes[i].shapes.Count() == 0)
+                group1 = groupShapes[0].group;
+                for (int i = 1; i < groupShapes.Count; i++)
                 {
-                    groupShapes[i].isPartOfGroup = true;
-                    groupShapes[i].group = group1;
-                    group1.Add(groupShapes[i]);
+                    if(groupShapes[i].group != group1)
+                    {
+                        group1.Add(groupShapes[i].group);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < groupShapes.Count(); i++)
+                {
+                    if(groupShapes[i].shapes.Count() == 0)
+                    {
+                        groupShapes[i].isPartOfGroup = true;
+                        groupShapes[i].group = group1;
+                        group1.Add(groupShapes[i]);
+                    }
                 }
             }
         }
 
-        public void ListGroup()
+        public List<Shape> ListGroup(Shape shape)
         {
-            if(this.isPartOfGroup)
+            Group group = shape.BelongsToGroup();
+            foreach (Shape s in group.GetShapesInGroup())
             {
-                Console.WriteLine("True");
-                Console.WriteLine(this.group.count());
+                if (s is Group)
+                {
+                    ListGroup(s.ListOfShapes().First());
+                }
+                else
+                {
+                    shapeList.Add(s);
+                }
             }
-            else
-            {
-                Console.WriteLine("false");
-            }
-            Console.WriteLine(this.type);
-            //foreach (Shape shape in this.GetShapesInGroup())
-            //{
-            //    Console.WriteLine("Hoi");
-            //    foreach (Shape item in shape.GetShapesInGroup())
-            //    {
-            //        Console.WriteLine("\tHallo");
-            //    }
-            //}
+
+            return shapeList;
         }
     }
 }

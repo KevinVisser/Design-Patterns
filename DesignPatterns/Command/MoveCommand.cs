@@ -17,14 +17,7 @@ namespace DesignPatterns.Command
 
         public void Execute(EventArgs e)
         {
-            if (_r.IsPartOfGroup())
-            {
-                _r.GroupMove();
-            }
-            else
-            {
-                _r.Move();
-            }
+            _r.Move();
         }
     }
 }

@@ -36,15 +36,8 @@ namespace DesignPatterns
         List<Shape> shapeList = new List<Shape>();
 
         //Booleans voor de knoppen(kunnen we later enum voor maken misschien)
-        enum ButtonSelected {RECTANGLE, ELLIPSE, SELECT, RESIZE, MOVE, GROUP, ACCEPT};
-        ButtonSelected buttonSelected = ButtonSelected.MOVE;
-        bool rectangle = false;
-        bool ellipse = false;
-        bool select = false;
-        bool resize = false;
-        bool move = false;
-        bool group = false;
-        bool accept = false;
+        enum ButtonSelected {RECTANGLE, ELLIPSE, SELECT, RESIZE, MOVE, GROUP, ACCEPT, NONE};
+        ButtonSelected buttonSelected = ButtonSelected.NONE;
         
         public Form1()
         {
@@ -86,51 +79,21 @@ namespace DesignPatterns
                     buttonSelected = ButtonSelected.ACCEPT;
                     break;
                 case "Undo":
+                    buttonSelected = ButtonSelected.NONE;
                     commandManager.Undo(e);
                     this.Refresh();
-                    //buttonSelected = ButtonSelected.ACCEPT;
                     break;
                 case "Redo":
+                    buttonSelected = ButtonSelected.NONE;
                     commandManager.Redo(e);
                     this.Refresh();
-                    //buttonSelected = ButtonSelected.ACCEPT;
                     break;
                 case "Done":
-                    commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
+                    buttonSelected = ButtonSelected.NONE;
+                    commandManager.ExecuteCommand(new GroupCommand(shapeList), e);
                     shapeList.Clear();
-                    //buttonSelected = ButtonSelected.ACCEPT;
                     break;
-
             }
-        }
-
-        private void UndoButton_Click(object sender, EventArgs e)
-        {
-            commandManager.Undo(e);
-            this.Refresh();
-        }
-
-        private void RedoButton_Click(object sender, EventArgs e)
-        {
-            commandManager.Redo(e);
-            this.Refresh();
-        }
-
-        private void DoneButton_Click(object sender, EventArgs e)
-        {
-            select = false;
-            rectangle = false;
-            ellipse = false;
-            move = false;
-            resize = false;
-            group = false;
-            commandManager.ExecuteCommand(new GroupCommand(shapeList[0], shapeList), e);
-            shapeList.Clear();
-        }
-
-        private void AcceptButton_Click(object sender, EventArgs e)
-        {
-
         }
         #endregion
 
@@ -189,41 +152,30 @@ namespace DesignPatterns
             {
                 case ButtonSelected.SELECT:
                     selectedItem = shape;
-                    //if (sender is Ellipse)
-                    //{
-                    //    Shape s = (Ellipse)sender;
-                    //    selectedItem = s;
-                    //}
-                    //else if (sender is Rect)
-                    //{
-                    //    Shape s = (Rect)sender;
-                    //    selectedItem = s;
-                    //}
                     break;
                 case ButtonSelected.MOVE:
 
                     selectedItem = (Shape)sender;
-                    commandManager.ExecuteCommand(new MoveCommand((Shape)sender), e);
+                    selectedItem.Accept(moveShapeVisitor, e);
                     break;
                 case ButtonSelected.RESIZE:
 
                     if (mouse.Button == MouseButtons.Left)
                     {
                         shape.Accept(increaseSizeShapeVisitor, e);
-                        //increaseSizeShapeVisitor.Visit(shape, e);
-                        //commandManager.ExecuteCommand(new IncreaseSizeCommand((Shape)sender), e);
                     }
                     else if (mouse.Button == MouseButtons.Right)
                     {
                         shape.Accept(decreaseSizeShapeVisitor, e);
-                        //decreaseSizeShapeVisitor.Visit(shape, e);
-                        //commandManager.ExecuteCommand(new DecreaseSizeCommand((Shape)sender), e);
                     }
                     this.Refresh();
                     break;
                 case ButtonSelected.GROUP:
 
                     shapeList.Add((Shape)sender);
+                    break;
+                case ButtonSelected.ACCEPT:
+                    shape.ListGroup(shape);
                     break;
             }
         }
@@ -246,7 +198,7 @@ namespace DesignPatterns
         {
             if(buttonSelected == ButtonSelected.MOVE && selectedItem != null)
             {
-                commandManager.ExecuteCommand(new MoveCommand(selectedItem), e);
+                selectedItem.Accept(moveShapeVisitor, e);
                 selectedItem = null;
             }
             Panel panel = (Panel)sender;

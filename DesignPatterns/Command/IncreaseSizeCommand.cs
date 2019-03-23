@@ -19,11 +19,14 @@ namespace DesignPatterns.Command
         {
             if (_r.IsPartOfGroup())
             {
-                Group group = _r.BelongsToGroup();
-                foreach (Shape shape in group.GetShapesInGroup())
+                List<Shape> list = _r.ListGroup(_r);
+
+                foreach (Shape shape in list)
                 {
                     shape.IncreaseSize(e);
                 }
+
+                list.Clear();
             }
             else
             {
@@ -35,11 +38,14 @@ namespace DesignPatterns.Command
         {
             if (_r.IsPartOfGroup())
             {
-                Group group = _r.BelongsToGroup();
-                foreach (Shape shape in group.GetShapesInGroup())
+                List<Shape> list = _r.ListGroup(_r);
+
+                foreach (Shape shape in list)
                 {
                     shape.DecreaseSize(e);
                 }
+
+                list.Clear();
             }
             else
             {

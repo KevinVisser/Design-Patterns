@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns
 {
-    public class Group
+    public class Group : Shape
     {
         private List<Shape> shapes;
         public static int id = 0;
@@ -22,6 +22,11 @@ namespace DesignPatterns
             this.shapes.Add(s);
         }
 
+        public void Add(Group g)
+        {
+            this.shapes.Add(g);
+        }
+
         public void Remove(Shape s)
         {
             this.shapes.Add(s);
@@ -30,6 +35,11 @@ namespace DesignPatterns
         public List<Shape> GetShapesInGroup()
         {
             return this.shapes;
+        }
+
+        public override List<Shape> ListOfShapes()
+        {
+            return shapes;
         }
 
         public int toString()
