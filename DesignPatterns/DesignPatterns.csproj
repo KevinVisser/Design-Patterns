@@ -50,15 +50,15 @@
   <ItemGroup>
     <Compile Include="Command\CommandManager.cs" />
     <Compile Include="Command\DecreaseSizeCommand.cs" />
-    <Compile Include="Command\DrawEllipse.cs" />
-    <Compile Include="Command\DrawRectangle.cs" />
+    <Compile Include="Command\DrawEllipseCommand.cs" />
+    <Compile Include="Command\DrawRectangleCommand.cs" />
+    <Compile Include="Command\GroupCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\IncreaseSizeCommand.cs" />
     <Compile Include="Command\IUndoableCommand.cs" />
-    <Compile Include="Command\Move.cs" />
-    <Compile Include="Command\SaveCommand.cs" />
+    <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Command\Select.cs" />
-    <Compile Include="Ellipse.cs">
+    <Compile Include="Shape\Ellipse.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Form1.cs">
@@ -67,15 +67,20 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shape\Group.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rect.cs">
+    <Compile Include="Shape\Rect.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Save.cs" />
-    <Compile Include="Shape.cs">
+    <Compile Include="Shape\Shape.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Visitor\DecreaseSizeShapeVisitor.cs" />
+    <Compile Include="Visitor\IncreaseSizeShapeVisitor.cs" />
+    <Compile Include="Visitor\MoveShapeVisitor.cs" />
+    <Compile Include="Visitor\SaveFileVisitor.cs" />
+    <Compile Include="Visitor\ShapeVisitor.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

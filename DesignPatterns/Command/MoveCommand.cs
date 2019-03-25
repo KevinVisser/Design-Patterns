@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DesignPatterns.Command
 {
-    class Move : ICommand
+    class MoveCommand : ICommand
     {
         private Shape _r;
 
-        public Move(Shape r)
+        public MoveCommand(Shape r)
         {
             _r = r;
         }

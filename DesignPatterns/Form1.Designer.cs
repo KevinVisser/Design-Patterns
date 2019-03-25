@@ -39,7 +39,9 @@
             this.MoveButton = new System.Windows.Forms.Button();
             this.UndoButton = new System.Windows.Forms.Button();
             this.RedoButton = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
+            this.GroupButton = new System.Windows.Forms.Button();
+            this.DoneButton = new System.Windows.Forms.Button();
+            this.AcceptButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RectangleButton
@@ -47,33 +49,33 @@
             this.RectangleButton.Location = new System.Drawing.Point(699, 12);
             this.RectangleButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RectangleButton.Name = "RectangleButton";
-            this.RectangleButton.Size = new System.Drawing.Size(100, 28);
+            this.RectangleButton.Size = new System.Drawing.Size(85, 23);
             this.RectangleButton.TabIndex = 1;
             this.RectangleButton.Text = "Rectangle";
             this.RectangleButton.UseVisualStyleBackColor = true;
-            this.RectangleButton.Click += new System.EventHandler(this.RectangleButton_Click);
+            this.RectangleButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // EllipseButton
             // 
             this.EllipseButton.Location = new System.Drawing.Point(699, 48);
             this.EllipseButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.EllipseButton.Name = "EllipseButton";
-            this.EllipseButton.Size = new System.Drawing.Size(100, 28);
+            this.EllipseButton.Size = new System.Drawing.Size(85, 23);
             this.EllipseButton.TabIndex = 2;
             this.EllipseButton.Text = "Ellipse";
             this.EllipseButton.UseVisualStyleBackColor = true;
-            this.EllipseButton.Click += new System.EventHandler(this.EllipseButton_Click);
+            this.EllipseButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // SelectButton
             // 
             this.SelectButton.Location = new System.Drawing.Point(699, 84);
             this.SelectButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SelectButton.Name = "SelectButton";
-            this.SelectButton.Size = new System.Drawing.Size(100, 28);
+            this.SelectButton.Size = new System.Drawing.Size(85, 23);
             this.SelectButton.TabIndex = 3;
             this.SelectButton.Text = "Select";
             this.SelectButton.UseVisualStyleBackColor = true;
-            this.SelectButton.Click += new System.EventHandler(this.SelectButton_Click);
+            this.SelectButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // panel1
             // 
@@ -82,53 +84,81 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(680, 420);
             this.panel1.TabIndex = 0;
-            this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.Click += new System.EventHandler(this.Panel1_Click);
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseDown);
             // 
             // ResizeButton
             // 
             this.ResizeButton.Location = new System.Drawing.Point(699, 121);
             this.ResizeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ResizeButton.Name = "ResizeButton";
-            this.ResizeButton.Size = new System.Drawing.Size(100, 28);
+            this.ResizeButton.Size = new System.Drawing.Size(85, 23);
             this.ResizeButton.TabIndex = 4;
             this.ResizeButton.Text = "Resize";
             this.ResizeButton.UseVisualStyleBackColor = true;
-            this.ResizeButton.Click += new System.EventHandler(this.Resize_Click);
+            this.ResizeButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // MoveButton
             // 
             this.MoveButton.Location = new System.Drawing.Point(699, 156);
             this.MoveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MoveButton.Name = "MoveButton";
-            this.MoveButton.Size = new System.Drawing.Size(100, 28);
+            this.MoveButton.Size = new System.Drawing.Size(85, 23);
             this.MoveButton.TabIndex = 5;
             this.MoveButton.Text = "Move";
             this.MoveButton.UseVisualStyleBackColor = true;
-            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
+            this.MoveButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // UndoButton
             // 
-            this.UndoButton.Location = new System.Drawing.Point(699, 316);
-            this.UndoButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.UndoButton.Location = new System.Drawing.Point(524, 328);
             this.UndoButton.Name = "UndoButton";
             this.UndoButton.Size = new System.Drawing.Size(100, 28);
             this.UndoButton.TabIndex = 6;
             this.UndoButton.Text = "Undo";
             this.UndoButton.UseVisualStyleBackColor = true;
-            this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            this.UndoButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // RedoButton
             // 
-            this.RedoButton.Location = new System.Drawing.Point(807, 316);
-            this.RedoButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RedoButton.Location = new System.Drawing.Point(605, 328);
             this.RedoButton.Name = "RedoButton";
             this.RedoButton.Size = new System.Drawing.Size(100, 28);
             this.RedoButton.TabIndex = 7;
             this.RedoButton.Text = "Redo";
             this.RedoButton.UseVisualStyleBackColor = true;
-            this.RedoButton.Click += new System.EventHandler(this.RedoButton_Click);
+            this.RedoButton.Click += new System.EventHandler(this.IOButton_Click);
+            // 
+            // GroupButton
+            // 
+            this.GroupButton.Location = new System.Drawing.Point(524, 185);
+            this.GroupButton.Name = "GroupButton";
+            this.GroupButton.Size = new System.Drawing.Size(85, 23);
+            this.GroupButton.TabIndex = 8;
+            this.GroupButton.Text = "Group";
+            this.GroupButton.UseVisualStyleBackColor = true;
+            this.GroupButton.Click += new System.EventHandler(this.IOButton_Click);
+            // 
+            // DoneButton
+            // 
+            this.DoneButton.Location = new System.Drawing.Point(605, 369);
+            this.DoneButton.Name = "DoneButton";
+            this.DoneButton.Size = new System.Drawing.Size(75, 23);
+            this.DoneButton.TabIndex = 9;
+            this.DoneButton.Text = "Done";
+            this.DoneButton.UseVisualStyleBackColor = true;
+            this.DoneButton.Click += new System.EventHandler(this.IOButton_Click);
+            // 
+            // AcceptButton
+            // 
+            this.AcceptButton.Location = new System.Drawing.Point(524, 235);
+            this.AcceptButton.Name = "AcceptButton";
+            this.AcceptButton.Size = new System.Drawing.Size(85, 23);
+            this.AcceptButton.TabIndex = 10;
+            this.AcceptButton.Text = "Accept";
+            this.AcceptButton.UseVisualStyleBackColor = true;
+            this.AcceptButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
             // SaveButton
             // 
@@ -145,8 +175,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(920, 497);
-            this.Controls.Add(this.SaveButton);
+            this.ClientSize = new System.Drawing.Size(690, 404);
+            this.Controls.Add(this.AcceptButton);
+            this.Controls.Add(this.DoneButton);
+            this.Controls.Add(this.GroupButton);
             this.Controls.Add(this.RedoButton);
             this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.MoveButton);
@@ -174,7 +206,6 @@
         private System.Windows.Forms.Button MoveButton;
         private System.Windows.Forms.Button UndoButton;
         private System.Windows.Forms.Button RedoButton;
-        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button AcceptButton;
     }
 }
-

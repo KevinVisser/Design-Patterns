@@ -17,12 +17,40 @@ namespace DesignPatterns.Command
 
         public void Execute(EventArgs e)
         {
-            this._r.DecreaseSize(_r, e);
+            if (_r.IsPartOfGroup())
+            {
+                List<Shape> list = _r.ListGroup(_r);
+
+                foreach (Shape shape in list)
+                {
+                    shape.DecreaseSize(e);
+                }
+
+                list.Clear();
+            }
+            else
+            {
+                _r.DecreaseSize(e);
+            }
         }
 
         public void Undo(EventArgs e)
         {
-            this._r.IncreaseSize(_r, e);
+            if (_r.IsPartOfGroup())
+            {
+                List<Shape> list = _r.ListGroup(_r);
+
+                foreach (Shape shape in list)
+                {
+                    shape.IncreaseSize(e);
+                }
+
+                list.Clear();
+            }
+            else
+            {
+                _r.IncreaseSize(e);
+            }            
         }
     }
 }

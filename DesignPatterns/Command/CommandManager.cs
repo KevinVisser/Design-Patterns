@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Command
 {
-    class CommandManager
+    public class CommandManager
     {
         //2 stacks om alle commands die zijn uitgevoerd te bewaren om zo redo en undo te kunnen doen.
         private Stack<ICommand> undoCommand = new Stack<ICommand>();
         private Stack<ICommand> redoCommand = new Stack<ICommand>();
+        private static CommandManager commandManager = new CommandManager();
 
+        private CommandManager() { }
+
+        public static CommandManager getInstance()
+        {
+            return commandManager;
+        }
         
         public void ExecuteCommand(ICommand command, EventArgs e)
         {
