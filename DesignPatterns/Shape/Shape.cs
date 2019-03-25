@@ -12,7 +12,7 @@ namespace DesignPatterns
     public class Shape : Panel
     {
         protected Size _userSize;
-        protected Point location;
+        protected Point _location;
         protected Group group;
         protected string type;
         protected Shape selectedItem = null;
@@ -24,6 +24,8 @@ namespace DesignPatterns
         public virtual void Accept(ShapeVisitor visitor, EventArgs e) { }
 
         public virtual void Draw(PaintEventArgs e, Size s){}
+        public virtual void Draw(Graphics g, Size size) { }
+
         public virtual string GetTypeBack()
         {
             return "shape";

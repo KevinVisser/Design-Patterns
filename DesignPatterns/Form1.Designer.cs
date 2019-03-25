@@ -42,6 +42,7 @@
             this.GroupButton = new System.Windows.Forms.Button();
             this.DoneButton = new System.Windows.Forms.Button();
             this.AcceptButton = new System.Windows.Forms.Button();
+            this.LoadFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RectangleButton
@@ -155,11 +156,22 @@
             this.AcceptButton.UseVisualStyleBackColor = true;
             this.AcceptButton.Click += new System.EventHandler(this.IOButton_Click);
             // 
+            // LoadFileButton
+            // 
+            this.LoadFileButton.Location = new System.Drawing.Point(524, 264);
+            this.LoadFileButton.Name = "LoadFileButton";
+            this.LoadFileButton.Size = new System.Drawing.Size(85, 23);
+            this.LoadFileButton.TabIndex = 11;
+            this.LoadFileButton.Text = "Load File";
+            this.LoadFileButton.UseVisualStyleBackColor = true;
+            this.LoadFileButton.Click += new System.EventHandler(this.IOButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 404);
+            this.Controls.Add(this.LoadFileButton);
             this.Controls.Add(this.AcceptButton);
             this.Controls.Add(this.DoneButton);
             this.Controls.Add(this.GroupButton);
@@ -193,6 +205,7 @@
         private System.Windows.Forms.Button GroupButton;
         private System.Windows.Forms.Button DoneButton;
         private System.Windows.Forms.Button AcceptButton;
+        private System.Windows.Forms.Button LoadFileButton;
     }
 }
 

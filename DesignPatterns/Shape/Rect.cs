@@ -11,10 +11,10 @@ namespace DesignPatterns
 {
     public class Rect : Shape
     {
-
-        public Rect(Size userSize)
+        public Rect(Point location, Size userSize)
         {
             this.type = "Rectangle";
+            this._location = location;
             this._userSize = userSize;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -23,7 +23,12 @@ namespace DesignPatterns
 
         public override void Draw(PaintEventArgs e, Size size)
         {
-            e.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, size.Width, size.Height));
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, this._userSize.Width, this._userSize.Height));
+        }
+
+        public override void Draw(Graphics g, Size size)
+        {
+            g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(this.Location.X, this.Location.Y, this._userSize.Width, this._userSize.Height));
         }
 
         public override string GetTypeBack()

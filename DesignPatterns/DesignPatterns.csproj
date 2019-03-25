@@ -58,6 +58,7 @@
     <Compile Include="Command\IUndoableCommand.cs" />
     <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Command\Select.cs" />
+    <Compile Include="IO\LoadFile.cs" />
     <Compile Include="Shape\Ellipse.cs">
       <SubType>Component</SubType>
     </Compile>
