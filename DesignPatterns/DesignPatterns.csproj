@@ -49,15 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\CommandManager.cs" />
-    <Compile Include="Command\DecreaseSizeCommand.cs" />
-    <Compile Include="Command\DrawEllipseCommand.cs" />
-    <Compile Include="Command\DrawRectangleCommand.cs" />
-    <Compile Include="Command\GroupCommand.cs" />
+    <Compile Include="Command\Commands\DecreaseSizeCommand.cs" />
+    <Compile Include="Command\Commands\DrawEllipseCommand.cs" />
+    <Compile Include="Command\Commands\DrawRectangleCommand.cs" />
+    <Compile Include="Command\Commands\GroupCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\IncreaseSizeCommand.cs" />
+    <Compile Include="Command\Commands\IncreaseSizeCommand.cs" />
     <Compile Include="Command\IUndoableCommand.cs" />
-    <Compile Include="Command\MoveCommand.cs" />
-    <Compile Include="Command\Select.cs" />
+    <Compile Include="Command\Commands\MoveCommand.cs" />
+    <Compile Include="Command\Commands\Select.cs" />
     <Compile Include="IO\LoadFile.cs" />
     <Compile Include="Shape\Ellipse.cs">
       <SubType>Component</SubType>
