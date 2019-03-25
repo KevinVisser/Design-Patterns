@@ -1,30 +1,10 @@
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\bin\Debug\DesignPatterns.exe.config
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\bin\Debug\DesignPatterns.exe
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\bin\Debug\DesignPatterns.pdb
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.Form1.resources
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.Properties.Resources.resources
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.csproj.GenerateResource.cache
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.csproj.CoreCompileInputs.cache
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.exe
-C:\Users\Asscher\source\repos\DesignPatterns\DesignPatterns\obj\Debug\DesignPatterns.pdb
-D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.exe.config
-D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.exe
-D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.pdb
+D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.Form1.resources
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.Properties.Resources.resources
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.csproj.GenerateResource.cache
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.csproj.CoreCompileInputs.cache
+D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.exe.config
+D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.exe
+D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\bin\Debug\DesignPatterns.pdb
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.exe
 D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.pdb
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\bin\Debug\DesignPatterns.exe.config
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\bin\Debug\DesignPatterns.exe
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\bin\Debug\DesignPatterns.pdb
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.Form1.resources
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.Properties.Resources.resources
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.csproj.GenerateResource.cache
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.csproj.CoreCompileInputs.cache
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.exe
-C:\Users\Asscher\Desktop\kevinopdrachten\Design-Patterns\DesignPatterns\obj\Debug\DesignPatterns.pdb
-D:\OneDrive\OneDrive - NHL Stenden Hogeschool\Jaar 2\Periode 3\Design Patterns\Opdracht\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
